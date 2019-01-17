@@ -10,7 +10,7 @@ int		main(void)
 	printf("procent::%#05%::\n");
 	printf("------------------------------------------\n");
 */
-	printf("==============CHARS==============\n");
+/*	printf("==============CHARS==============\n");
 	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4:%c\n", 'x', 'y', 'z', 0); //4:^@
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4:%c\n", 'x', 'y', 'z', 0);
@@ -21,6 +21,10 @@ int		main(void)
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_% %\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
 	printf("  ret: %d\n--------\n", ret);
+*/
+	printf("%5%\n");
+	ft_printf("%5%\n");
+
 
 //	system("leaks a.out");
 	return 0;

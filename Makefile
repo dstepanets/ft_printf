@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY: all clean fclean re
+
 NAME = libftprintf.a
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
@@ -28,10 +30,10 @@ LIB_SRC =	ft_bzero.c \
 			ft_strnew.c \
 			ft_strsub.c
 LIB = $(addprefix $(LIB_DIR), $(LIB_SRC))
-
 OBJS = $(SRCS:.c=.o) $(LIB_SRC:.c=.o)
 
-.PHONY: all clean fclean re 
+
+re: fclean all
 
 all: $(NAME)
 
@@ -41,10 +43,13 @@ $(OBJS):
 
 $(NAME): $(OBJS)
 	ar -rc $(NAME) $(OBJS) $(HEAD)
-	@echo "\033[32mlft_printf.a compiled.\033[0m"
+	@echo "\033[32mft_printf.a compiled.\033[0m"
 	ranlib $(NAME)
 	@echo "\033[32mft_printf.a indexed.\033[0m"
-
+	$(CC) -g main.c $(NAME)
+	@echo "\033[32ma.out compiled\033[0m"
+	rm -f $(OBJS)
+	@echo "\033[31mft_printf object files removed.\033[0m"
 clean:
 	rm -f $(OBJS)
 	@echo "\033[31mft_printf object files removed.\033[0m"
@@ -55,14 +60,12 @@ fclean: clean
 	rm -Rf ./a.out a.out.dSYM		#a.out a.out.dSYM !!!TO DELETE
 	@echo "\033[31ma.out removed.\033[0m"
 
-re: fclean all
-
 ####################TO DELETE##########################
-b: all clean
-	$(CC) -g main.c $(NAME)
-	@echo "\033[32ma.out compiled\033[0m"
-
-bw: all clean
-	$(CC) $(FLAGS) -g main.c $(NAME)
-	@echo "\033[32ma.out compiled with -W flags.\033[0m"
+#b: all clean
+#	$(CC) -g main.c $(NAME)
+#	@echo "\033[32ma.out compiled\033[0m"
+#
+#bw: all clean
+#	$(CC) $(FLAGS) -g main.c $(NAME)
+#	@echo "\033[32ma.out compiled with -W flags.\033[0m"
 ######################################################
