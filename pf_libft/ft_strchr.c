@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strclr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 20:05:49 by dstepane          #+#    #+#             */
-/*   Updated: 2018/11/05 20:05:50 by dstepane         ###   ########.fr       */
+/*   Created: 2018/11/03 16:43:21 by dstepane          #+#    #+#             */
+/*   Updated: 2018/11/03 16:43:23 by dstepane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../ft_printf.h"
 
-void	ft_strclr(char *s)
+char	*ft_strchr(const char *s, int c)
 {
-	if (s)
+	while (*s != (char)c)
 	{
-		while (s && *s)
-			*(s++) = '\0';
+		if (*s == '\0')
+			return (NULL);
+		s++;
 	}
+	return ((char *)s);
 }

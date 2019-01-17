@@ -13,7 +13,6 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "./libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -48,5 +47,19 @@ void					parse_convers(char *fmt, t_specs *specs);
 
 void					convert_c(t_specs *specs);
 void					convert_procent(t_specs *specs);
+
+/*
+** libft functions
+*/
+
+void	ft_bzero(void *s, size_t n);
+int		ft_isdigit(int c);
+void	*ft_memset(void *b, int c, size_t len);
+void	ft_putstr(char const *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strnew(size_t size);
+char	*ft_strsub(char const *s, unsigned int start, size_t len);
 
 #endif
