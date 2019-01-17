@@ -21,16 +21,8 @@ SRCS =	ft_printf.c \
 LIBFT = ./libft/libft.a
 OBJS = $(SRCS:.c=.o)
 
-.PHONY: all clean fclean re b bf	### b bf - TO DELETE
-####################TO DELETE#############################
-b: all clean
-	$(CC) -g main.c $(NAME) $(LIBFT)
-	@echo "\033[32ma.out compiled\033[0m"
+.PHONY: all clean fclean re
 
-bw: all
-	$(CC) $(FLAGS) -g main.c $(NAME) $(LIBFT)
-	@echo "\033[32ma.out compiled with -W flags.\033[0m"
-######################################################
 all: $(NAME)
 
 $(LIBFT):
@@ -55,9 +47,5 @@ clean:
 fclean: clean
 	rm -f $(NAME) $(LIBFT)
 	@echo "\033[31mft_printf.a and libft.a removed.\033[0m"
-	rm -Rf ./a.out a.out.dSYM		#a.out a.out.dSYM !!!TO DELETE
-	@echo "\033[a.out removed.\033[0m"
 
-re: fclean b
-	
-#re: fclean all
+re: fclean all
