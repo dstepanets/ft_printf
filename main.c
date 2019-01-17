@@ -25,8 +25,13 @@ int		main(void)
 	printf("%5%\n");
 	ft_printf("%5%\n");
 
+ 	printf("%-5%\n");
+  	ft_printf("%-5%\n");
 
+	printf("%.0%\n");
+	ft_printf("%.0%\n");
 //	system("leaks a.out");
+
 	return 0;
 }
 
