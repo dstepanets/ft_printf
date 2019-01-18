@@ -23,7 +23,7 @@ int			print_format(char *fmt, t_specs *specs)
 		i++;
 	txt = ft_strsub(fmt, 0, i);
 	leakfix = specs->res_str;
-	specs->res_str = ft_strjoin(specs->res_str, txt);
+	specs->res_str = ft_strjoin(specs->res_str, txt, specs);
 	free(leakfix);
 	free(txt);
 	if (fmt[i] == '%' && fmt[i + 1])
@@ -34,8 +34,10 @@ int			print_format(char *fmt, t_specs *specs)
 		if (*leakfix)
 			free(leakfix);
 	}
-	specs->ret += specs->ret + ft_strlen(specs->res_str);
+//	specs->ret += ft_strlen(specs->res_str);
+//	printf("\n++++++++++++++++\nspecs->ret: %d\n", specs->ret);
 	return(specs->ret);
+//	return(specs->ret);
 }
 
 void		reset_specs(t_specs *specs)

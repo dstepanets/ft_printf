@@ -13,7 +13,7 @@
 .PHONY: all clean fclean re
 
 NAME = libftprintf.a
-CC = gcc
+CC = clang 					##########gcc!!!!!!!!
 FLAGS = -Wall -Wextra -Werror
 HEAD = ./ft_printf.h
 SRCS =	ft_printf.c \

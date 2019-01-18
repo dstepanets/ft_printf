@@ -12,7 +12,7 @@
 
 #include "../ft_printf.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, t_specs *specs)
 {
 	char	*res;
 	int		i;
@@ -27,6 +27,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (*s2)
 		res[i++] = *s2++;
 	res[i] = '\0';
-//	free((void*)s1);
+	specs->ret += ft_strlen(s2);
+	if (*s1)
+		free((void*)s1);
 	return (res);
 }

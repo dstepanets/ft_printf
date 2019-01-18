@@ -32,7 +32,7 @@ void		convert_procent(t_specs *specs)
 		res[1] = '\0';
 		res[0] = '%';
 	}
-	specs->res_str = ft_strjoin(specs->res_str, (const char *)res);
+	specs->res_str = ft_strjoin(specs->res_str, (const char *)res, specs);
 }
 
 void		null_char_helper(t_specs *specs)
@@ -41,9 +41,10 @@ void		null_char_helper(t_specs *specs)
 
 	leakfix = specs->res_str;
 	ft_putstr(specs->res_str);
+	specs->ret += ft_strlen(specs->res_str);
 //	ft_memdel((void *)leakfix);
-//	if (*specs->res_str)
-//		free(specs->res_str);
+	if (*specs->res_str)
+		free(specs->res_str);
 	specs->res_str = ft_strnew(1);
 	write(1, "\0", 1);
 	specs->ret++;
@@ -81,7 +82,7 @@ void		convert_c(t_specs *specs)
 		null_char_helper(specs);
 		return ;
 	}
-	specs->res_str = ft_strjoin(specs->res_str, (const char *)res);
+	specs->res_str = ft_strjoin(specs->res_str, (const char *)res, specs);
 }
 
 /*        
