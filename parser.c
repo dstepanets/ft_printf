@@ -17,18 +17,15 @@ void		parse_convers(char *fmt, t_specs *specs)
 	char c[2];
 
     c[1] = '\0';
-	if (*fmt == '%' || *fmt == 'c')
+	if (*fmt == '%')
 	{
-		if (*fmt == '%')
-		{
-			specs->convers = '%';
-			convert_procent(specs);
-		}
-		if (*fmt == 'c')
-		{
-			specs->convers = 'c';
-			convert_c(specs);
-		}
+		specs->convers = '%';
+		convert_procent(specs);
+	}
+	else if (*fmt == 'c')
+	{
+		specs->convers = 'c';
+		convert_c(specs);
 	}
 	else
 	{

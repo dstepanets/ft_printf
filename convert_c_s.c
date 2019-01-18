@@ -14,18 +14,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 void		convert_procent(t_specs *specs)
 {
 	unsigned char	res[specs->width + 2];

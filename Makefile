@@ -28,7 +28,8 @@ LIB_SRC =	ft_bzero.c \
 			ft_strjoin.c \
 			ft_strlen.c \
 			ft_strnew.c \
-			ft_strsub.c
+			ft_strsub.c \
+			ft_putstr_fd.c
 LIB = $(addprefix $(LIB_DIR), $(LIB_SRC))
 OBJS = $(SRCS:.c=.o) $(LIB_SRC:.c=.o)
 
@@ -38,7 +39,7 @@ re: fclean all
 all: $(NAME)
 
 $(OBJS):
-	$(CC) $(FLAGS) -c $(SRCS) $(LIB) 
+	$(CC) $(FLAGS) -g -c $(SRCS) $(LIB) 
 	@echo "\033[32mft_printf object files compiled.\033[0m"
 
 $(NAME): $(OBJS)
@@ -50,6 +51,7 @@ $(NAME): $(OBJS)
 	@echo "\033[32ma.out compiled\033[0m"
 	rm -f $(OBJS)
 	@echo "\033[31mft_printf object files removed.\033[0m"
+
 clean:
 	rm -f $(OBJS)
 	@echo "\033[31mft_printf object files removed.\033[0m"
@@ -59,6 +61,10 @@ fclean: clean
 	@echo "\033[31mft_printf.a removed.\033[0m"
 	rm -Rf ./a.out a.out.dSYM		#a.out a.out.dSYM !!!TO DELETE
 	@echo "\033[31ma.out removed.\033[0m"
+
+bw:
+	$(CC) $(FLAGS) -g main.c $(NAME)
+	@echo "\033[32ma.out compiled with -W flags.\033[0m"
 
 ####################TO DELETE##########################
 #b: all clean

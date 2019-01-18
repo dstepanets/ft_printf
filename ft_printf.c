@@ -26,13 +26,6 @@ int			print_format(char *fmt, t_specs *specs)
 	specs->res_str = ft_strjoin(specs->res_str, txt);
 	free(leakfix);
 	free(txt);
-/*	printf("++++++++SPECS++++++++++\nflags: ");
-	for (int z = 0; z < 5; z++)
-		printf("%c", specs->flags[z]);
-	printf("\nwidth: %d\n", specs->width);
-	printf("precision: %d\n", specs->prec);
-	printf("length: %d\n", specs->len);
-	printf("conversion: %c\n+++++++++++++++++++++++\n\n", specs->convers);*/
 	if (fmt[i] == '%')
 	{
 		reset_specs(specs);
@@ -40,8 +33,6 @@ int			print_format(char *fmt, t_specs *specs)
 		parse_flags(&fmt[++i], specs);
 		free(leakfix);
 	}
-	if (fmt[i] == '\0' || fmt[i + 1] == '\0')
-		ft_putstr(specs->res_str);
 	return(ft_strlen(specs->res_str));
 }
 
@@ -85,6 +76,7 @@ int			ft_printf(const char *format, ...)
 	va_start(specs->args, format);
 	ret = print_format((char *)format, specs);
 	va_end(specs->args);
+	ft_putstr(specs->res_str);
 	if (*specs->res_str)
 		free(specs->res_str);
 	free(specs);

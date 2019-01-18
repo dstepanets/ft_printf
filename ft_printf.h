@@ -62,4 +62,9 @@ size_t	ft_strlen(const char *s);
 char	*ft_strnew(size_t size);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 
+/*
+** TEMP
+*/
+void	ft_putstr_fd(char const *s, int fd);
+
 #endif
