@@ -26,7 +26,7 @@ int			print_format(char *fmt, t_specs *specs)
 	specs->res_str = ft_strjoin(specs->res_str, txt);
 	free(leakfix);
 	free(txt);
-	if (fmt[i] == '%')
+	if (fmt[i] == '%' && fmt[i + 1])
 	{
 		reset_specs(specs);
 		leakfix = specs->res_str;

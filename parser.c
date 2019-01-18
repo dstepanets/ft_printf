@@ -32,7 +32,7 @@ void		parse_convers(char *fmt, t_specs *specs)
 		c[0] = *fmt;
 		specs->res_str = ft_strjoin(specs->res_str, c);
 	}
-	if (*(fmt + 1) != '\0')
+	if (*fmt != '\0' && *(fmt + 1) != '\0')
 		print_format(++fmt, specs);
 }
 
