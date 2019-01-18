@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-
-
 void		convert_procent(t_specs *specs)
 {
 	unsigned char	res[specs->width + 2];
@@ -37,6 +35,20 @@ void		convert_procent(t_specs *specs)
 	specs->res_str = ft_strjoin(specs->res_str, (const char *)res);
 }
 
+void		null_char_helper(t_specs *specs)
+{
+	char	*leakfix;
+
+	leakfix = specs->res_str;
+	ft_putstr(specs->res_str);
+//	ft_memdel((void *)leakfix);
+//	if (*specs->res_str)
+//		free(specs->res_str);
+	specs->res_str = ft_strnew(1);
+	write(1, "\0", 1);
+	specs->ret++;
+}
+
 void		convert_c(t_specs *specs)
 {
 	unsigned char	res[specs->width + 2];
@@ -50,12 +62,24 @@ void		convert_c(t_specs *specs)
 		if (specs->flags[0] == '-')
 			res[0] = va_arg(specs->args, int);
 		else
+		{
 			res[specs->width - 1] = va_arg(specs->args, int);
+			if (res[specs->width - 1] == 0)
+			{
+				null_char_helper(specs);
+				return ;
+			}
+		}
 	}
 	else
 	{
 		res[1] = '\0';
 		res[0] = va_arg(specs->args, int);
+	}
+	if (res[0] == 0)
+	{
+		null_char_helper(specs);
+		return ;
 	}
 	specs->res_str = ft_strjoin(specs->res_str, (const char *)res);
 }

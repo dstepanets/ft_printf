@@ -27,6 +27,7 @@ typedef struct					s_specs
 {
 	va_list						args;
 	char						*res_str;
+	int							ret;
 	char						flags[5];
 	int							width;
 	int							prec;
@@ -46,6 +47,7 @@ void					parse_length(char *fmt, t_specs *specs);
 void					parse_convers(char *fmt, t_specs *specs);
 
 void					convert_c(t_specs *specs);
+void					null_char_helper(t_specs *specs);
 void					convert_procent(t_specs *specs);
 
 /*
@@ -66,5 +68,6 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len);
 ** TEMP
 */
 void	ft_putstr_fd(char const *s, int fd);
+void	ft_memdel(void **ap);
 
 #endif

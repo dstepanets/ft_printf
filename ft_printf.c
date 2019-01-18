@@ -31,9 +31,11 @@ int			print_format(char *fmt, t_specs *specs)
 		reset_specs(specs);
 		leakfix = specs->res_str;
 		parse_flags(&fmt[++i], specs);
-		free(leakfix);
+		if (*leakfix)
+			free(leakfix);
 	}
-	return(ft_strlen(specs->res_str));
+	specs->ret += specs->ret + ft_strlen(specs->res_str);
+	return(specs->ret);
 }
 
 void		reset_specs(t_specs *specs)
@@ -51,6 +53,7 @@ t_specs		*init_specs(void)
 
 	specs = (t_specs *)malloc(sizeof(t_specs));
 	specs->res_str = ft_strnew(1);
+	specs->ret = 0;
 	ft_bzero(specs->flags, 5);
 	specs->width = 0;
 	specs->prec = -1;

@@ -29,7 +29,8 @@ LIB_SRC =	ft_bzero.c \
 			ft_strlen.c \
 			ft_strnew.c \
 			ft_strsub.c \
-			ft_putstr_fd.c
+			ft_putstr_fd.c \
+			ft_memdel.c
 LIB = $(addprefix $(LIB_DIR), $(LIB_SRC))
 OBJS = $(SRCS:.c=.o) $(LIB_SRC:.c=.o)
 
