@@ -16,33 +16,41 @@ int		main(void)
 	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0);
 	printf("  ret: %d\n--------\n", ret);
 
-/*
 	printf("==============%%%%%%%%%%==============\n");
 	ret = printf("pf_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
 	printf("  ret: %d\n--------\n", ret);
-*/
-//	printf("|%5%|\n");
-//	ft_printf("|%5%|\n");
 
-//	printf("|%-5%|\n");
-//	ft_printf("|%-5%|\n");
+	printf("-------------------------\n");
+	printf("|%5%|\n");
+	ft_printf("|%5%|\n");
 
-//	printf("|%.0%|\n");
-//	ft_printf("|%.0%|\n");
+	printf("|%-5%|\n");
+	ft_printf("|%-5%|\n");
 
-//	printf("|%   %|\n", "test");
-//	ft_printf("|%   %|\n", "test");
+	printf("|%.0%|\n");
+	ft_printf("|%.0%|\n");
+
+	printf("|%   %|\n", "test");
+	ft_printf("|%   %|\n", "test");
+	printf("-------------------------\n");
+	printf("% ");
+	ft_printf("% ");
+	printf("% h");
+	ft_printf("% h");
+	printf("|% %|\n", "test");
+	ft_printf("|% %|\n", "test");
+
+
+//	TO FIX!!!!
 //	printf("-------------------------\n");
-//	printf("%");
-//	ft_printf("% ");
-//	ft_printf("% h");
-//	printf("|% %|\n", "test");
-//	ft_printf("|% %|\n", "test");
+//	printf("|%%%777\n");
+//	ft_printf("|%%%777\n");
 
+	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 	system("leaks a.out");
-	return 0;
+	return (0);
 }
 
 //	ccw -g main.c ft_printf.c parser.c convert_c_s.c ./libft/libft.a

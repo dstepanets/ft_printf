@@ -37,14 +37,13 @@ void		convert_procent(t_pf *pf)
 
 void		null_char_helper(t_pf *pf)
 {
-//	char	*leakfix;
+	char	*leakfix;
 
-//	leakfix = pf->res_str;
+	leakfix = pf->res_str;
 	ft_putstr(pf->res_str);
-	pf->ret += ft_strlen(pf->res_str);
 //	ft_memdel((void *)leakfix);
-//	if (*pf->res_str)
-//		free(pf->res_str);
+	if (*pf->res_str)
+		free(pf->res_str);
 	pf->res_str = ft_strnew(1);
 	write(1, "\0", 1);
 	pf->ret++;

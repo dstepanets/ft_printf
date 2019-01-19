@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int			print_format(t_pf *pf)
+int			parse_format(t_pf *pf)
 {
 	int		i;
 	char	*txt;
-	char	*leakfix;
+//	char	*leakfix;
 
 	while (*pf->fmt != '\0')
 	{
@@ -24,21 +24,22 @@ int			print_format(t_pf *pf)
 		while (pf->fmt[i] && pf->fmt[i] != '%')
 			i++;
 		txt = ft_strsub(pf->fmt, 0, i);
-		leakfix = pf->res_str;
+//		leakfix = pf->res_str;
 		pf->res_str = ft_strjoin(pf->res_str, txt, pf);
-		free(leakfix);
+//		free(leakfix);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
 		if (*pf->fmt == '%' && *(pf->fmt + 1))
 		{
 			reset_specs(pf);
-			leakfix = pf->res_str;
 			pf->fmt++;
+//			leakfix = pf->res_str;
 			parse_flags(pf);
-			if (*leakfix)
-				free(leakfix);
+//			if (*pf->res_str)
+//			if (pf->convers)
+//				free(leakfix);
 		}
-		pf->fmt++;
+//		pf->fmt++;
 	}
 //	pf->ret += ft_strlen(pf->res_str);
 //	printf("\n++++++++++++++++\npf->ret: %d\n", pf->ret);
@@ -85,10 +86,10 @@ int			ft_printf(const char *format, ...)
 	pf = init_specs((char *)format);
 	ret = 0;
 	va_start(pf->args, format);
-	ret = print_format(pf);
+	ret = parse_format(pf);
 	va_end(pf->args);
 	ft_putstr(pf->res_str);
-	if (*pf->res_str)
+//	if (*pf->res_str)
 		free(pf->res_str);
 	free(pf);
 	return(ret); 

@@ -27,14 +27,14 @@ void		parse_convers(t_pf *pf)
 		pf->convers = 'c';
 		convert_c(pf);
 	}
-/*	else
+	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
 		pf->res_str = ft_strjoin(pf->res_str, c, pf);
 	}
-*/
-//	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
-//		pf->fmt++;
+
+	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
+		pf->fmt++;
 }
 
 void		parse_length(t_pf *pf)
