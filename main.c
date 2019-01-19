@@ -11,9 +11,9 @@ int		main(void)
 	printf("------------------------------------------\n");
 */
 	printf("==============CHARS==============\n");
-	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
+	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
 	printf("  ret: %d\n--------\n", ret);
-	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|\n", 'x', 'y', 'z', 0);
+	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0);
 	printf("  ret: %d\n--------\n", ret);
 
 /*
