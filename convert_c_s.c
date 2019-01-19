@@ -12,62 +12,62 @@
 
 #include "ft_printf.h"
 
-void		convert_procent(t_specs *specs)
+void		convert_procent(t_pf *pf)
 {
-	unsigned char	res[specs->width + 2];
+	unsigned char	res[pf->width + 2];
 
-	if (specs->width)
+	if (pf->width)
 	{
-		res[specs->width] = '\0';
-		specs->flags[3] == '0' && !specs->flags[0] ?
-			ft_memset(res, '0', specs->width) :
-			ft_memset(res, ' ', specs->width);
-		if (specs->flags[0] == '-')
+		res[pf->width] = '\0';
+		pf->flags[3] == '0' && !pf->flags[0] ?
+			ft_memset(res, '0', pf->width) :
+			ft_memset(res, ' ', pf->width);
+		if (pf->flags[0] == '-')
 			res[0] = '%';
 		else
-			res[specs->width - 1] = '%';
+			res[pf->width - 1] = '%';
 	}
 	else
 	{
 		res[1] = '\0';
 		res[0] = '%';
 	}
-	specs->res_str = ft_strjoin(specs->res_str, (const char *)res, specs);
+	pf->res_str = ft_strjoin(pf->res_str, (const char *)res, pf);
 }
 
-void		null_char_helper(t_specs *specs)
+void		null_char_helper(t_pf *pf)
 {
 	char	*leakfix;
 
-	leakfix = specs->res_str;
-	ft_putstr(specs->res_str);
-	specs->ret += ft_strlen(specs->res_str);
+	leakfix = pf->res_str;
+	ft_putstr(pf->res_str);
+	pf->ret += ft_strlen(pf->res_str);
 //	ft_memdel((void *)leakfix);
-	if (*specs->res_str)
-		free(specs->res_str);
-	specs->res_str = ft_strnew(1);
+	if (*pf->res_str)
+		free(pf->res_str);
+	pf->res_str = ft_strnew(1);
 	write(1, "\0", 1);
-	specs->ret++;
+	pf->ret++;
 }
 
-void		convert_c(t_specs *specs)
+void		convert_c(t_pf *pf)
 {
-	unsigned char	res[specs->width + 2];
+	unsigned char	res[pf->width + 2];
 
-	if (specs->width)
+	if (pf->width)
 	{
-		res[specs->width] = '\0';
-		specs->flags[3] == '0' && !specs->flags[0] ?
-			ft_memset(res, '0', specs->width) :
-			ft_memset(res, ' ', specs->width);
-		if (specs->flags[0] == '-')
-			res[0] = va_arg(specs->args, int);
+		res[pf->width] = '\0';
+		pf->flags[3] == '0' && !pf->flags[0] ?
+			ft_memset(res, '0', pf->width) :
+			ft_memset(res, ' ', pf->width);
+		if (pf->flags[0] == '-')
+			res[0] = va_arg(pf->args, int);
 		else
 		{
-			res[specs->width - 1] = va_arg(specs->args, int);
-			if (res[specs->width - 1] == 0)
+			res[pf->width - 1] = va_arg(pf->args, int);
+			if (res[pf->width - 1] == 0)
 			{
-				null_char_helper(specs);
+				null_char_helper(pf);
 				return ;
 			}
 		}
@@ -75,14 +75,14 @@ void		convert_c(t_specs *specs)
 	else
 	{
 		res[1] = '\0';
-		res[0] = va_arg(specs->args, int);
+		res[0] = va_arg(pf->args, int);
 	}
 	if (res[0] == 0)
 	{
-		null_char_helper(specs);
+		null_char_helper(pf);
 		return ;
 	}
-	specs->res_str = ft_strjoin(specs->res_str, (const char *)res, specs);
+	pf->res_str = ft_strjoin(pf->res_str, (const char *)res, pf);
 }
 
 /*        

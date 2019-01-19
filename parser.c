@@ -12,89 +12,91 @@
 
 #include "ft_printf.h"
 
-void		parse_convers(char *fmt, t_specs *specs)
+void		parse_convers(t_pf *pf)
 {
 	char c[2];
 
     c[1] = '\0';
-	if (*fmt == '%')
+	if (*pf->fmt == '%')
 	{
-		specs->convers = '%';
-		convert_procent(specs);
+		pf->convers = '%';
+		convert_procent(pf);
 	}
-	else if (*fmt == 'c')
+	else if (*pf->fmt == 'c')
 	{
-		specs->convers = 'c';
-		convert_c(specs);
+		pf->convers = 'c';
+		convert_c(pf);
 	}
-	else
+/*	else
 	{
-		c[0] = *fmt;
-		specs->res_str = ft_strjoin(specs->res_str, c, specs);
+		c[0] = *pf->fmt;
+		pf->res_str = ft_strjoin(pf->res_str, c, pf);
 	}
-	if (*fmt != '\0' && *(fmt + 1) != '\0')
-		print_format(++fmt, specs);
+*/
+//	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
+//		pf->fmt++;
 }
 
-void		parse_length(char *fmt, t_specs *specs)
+void		parse_length(t_pf *pf)
 {
-	if (*fmt == 'h' || *fmt == 'l' || *fmt == 'L')
+	if (*pf->fmt == 'h' || *pf->fmt == 'l' || *pf->fmt == 'L')
 	{
-		if (*fmt == 'h' && *(fmt + 1) == 'h')
+		if (*pf->fmt == 'h' && *(pf->fmt + 1) == 'h')
 		{
-			specs->len = hh;
-			fmt++;
+			pf->len = hh;
+			pf->fmt++;
 		}
-		else if (*fmt == 'h' && *(fmt + 1) != 'h')
-			specs->len = h;
-		if (*fmt == 'l' && *(fmt + 1) == 'l')
+		else if (*pf->fmt == 'h' && *(pf->fmt + 1) != 'h')
+			pf->len = h;
+		if (*pf->fmt == 'l' && *(pf->fmt + 1) == 'l')
 		{
-			specs->len = ll;
-			fmt++;
+			pf->len = ll;
+			pf->fmt++;
 		}
-		else if (*fmt == 'l' && *(fmt + 1) != 'l')
-			specs->len = l;
-		if (*fmt == 'L')
-			specs->len = L;
-		fmt++;
+		else if (*pf->fmt == 'l' && *(pf->fmt + 1) != 'l')
+			pf->len = l;
+		if (*pf->fmt == 'L')
+			pf->len = L;
+		pf->fmt++;
 	}
-	parse_convers(fmt, specs);
+	parse_convers(pf);
 }
 
-void		parse_precision(char *fmt, t_specs *specs)
+void		parse_precision(t_pf *pf)
 {
-	if (*fmt == '.')
+	if (*pf->fmt == '.')
 	{
-		fmt++;
-		specs->prec = 0;
-		while (ft_isdigit(*fmt))
-			specs->prec = specs->prec * 10 + (*fmt++ - '0');
+		pf->fmt++;
+		pf->prec = 0;
+		while (ft_isdigit(*pf->fmt))
+			pf->prec = pf->prec * 10 + (*pf->fmt++ - '0');
 	}
-	parse_length(fmt, specs);
+	parse_length(pf);
 }
 
-void		parse_fwidth(char *fmt, t_specs *specs)
+void		parse_fwidth(t_pf *pf)
 {
-	while (ft_isdigit(*fmt))
-		specs->width = specs->width * 10 + (*fmt++ - '0');
-	parse_precision(fmt, specs);
+	while (ft_isdigit(*pf->fmt))
+		pf->width = pf->width * 10 + (*pf->fmt++ - '0');
+	parse_precision(pf);
 }
 
-void		parse_flags(char *fmt, t_specs *specs)
+void		parse_flags(t_pf *pf)
 {
-	while (fmt && (*fmt == '-' || *fmt == '+' || *fmt == ' ' || *fmt == '0' || *fmt == '#'))
+	while (pf->fmt && (*pf->fmt == '-' || *pf->fmt == '+' || *pf->fmt == ' ' ||
+		*pf->fmt == '0' || *pf->fmt == '#'))
 	{
-		if (*fmt == '-')
-			specs->flags[0] = '-';
-		else if (*fmt == '+')
-			specs->flags[1] = '+';
-		else if (*fmt == ' ')
-			specs->flags[2] = 's';
-		else if (*fmt == '0')
-			specs->flags[3] = '0';
-		else if (*fmt == '#')
-			specs->flags[4] = '#';
-		fmt++;
+		if (*pf->fmt == '-')
+			pf->flags[0] = '-';
+		else if (*pf->fmt == '+')
+			pf->flags[1] = '+';
+		else if (*pf->fmt == ' ')
+			pf->flags[2] = 's';
+		else if (*pf->fmt == '0')
+			pf->flags[3] = '0';
+		else if (*pf->fmt == '#')
+			pf->flags[4] = '#';
+		pf->fmt++;
 	}
-	parse_fwidth(fmt, specs);
+	parse_fwidth(pf);
 }

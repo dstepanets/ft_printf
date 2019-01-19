@@ -15,6 +15,7 @@ int		main(void)
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|\n", 'x', 'y', 'z', 0);
 	printf("  ret: %d\n--------\n", ret);
+
 /*
 	printf("==============%%%%%%%%%%==============\n");
 	ret = printf("pf_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");

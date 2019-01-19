@@ -23,9 +23,10 @@
 ** char flags[5] = {-, +, space, 0, #};
 */
 
-typedef struct					s_specs
+typedef struct					s_pf
 {
 	va_list						args;
+	char						*fmt;
 	char						*res_str;
 	int							ret;
 	char						flags[5];
@@ -33,22 +34,22 @@ typedef struct					s_specs
 	int							prec;
 	enum {no, hh, h, l, ll, L}	len;
 	char						convers;	//maybe no need in it?
-}								t_specs;
+}								t_pf;
 
 int						ft_printf(const char *format, ...);
-t_specs					*init_specs(void);
-void					reset_specs(t_specs *specs);
-int						print_format(char *fmt, t_specs *specs);
+t_pf					*init_specs(char *fmt);
+void					reset_specs(t_pf *pf);
+int						print_format(t_pf *pf);
 
-void					parse_flags(char *fmt, t_specs *specs);
-void					parse_fwidth(char *fmt, t_specs *specs);
-void					parse_precision(char *fmt, t_specs *specs);
-void					parse_length(char *fmt, t_specs *specs);
-void					parse_convers(char *fmt, t_specs *specs);
+void					parse_flags(t_pf *pf);
+void					parse_fwidth(t_pf *pf);
+void					parse_precision(t_pf *pf);
+void					parse_length(t_pf *pf);
+void					parse_convers(t_pf *pf);
 
-void					convert_c(t_specs *specs);
-void					null_char_helper(t_specs *specs);
-void					convert_procent(t_specs *specs);
+void					convert_c(t_pf *pf);
+void					null_char_helper(t_pf *pf);
+void					convert_procent(t_pf *pf);
 
 /*
 ** libft functions
@@ -59,7 +60,7 @@ int		ft_isdigit(int c);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_putstr(char const *s);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2, t_specs *specs);
+char	*ft_strjoin(char const *s1, char const *s2, t_pf *pf);
 size_t	ft_strlen(const char *s);
 char	*ft_strnew(size_t size);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);

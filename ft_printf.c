@@ -12,61 +12,67 @@
 
 #include "ft_printf.h"
 
-int			print_format(char *fmt, t_specs *specs)
+int			print_format(t_pf *pf)
 {
 	int		i;
 	char	*txt;
-	char	*leakfix;
+//	char	*leakfix;
 
-	i = 0;
-	while (fmt[i] && fmt[i] != '%')
-		i++;
-	txt = ft_strsub(fmt, 0, i);
-	leakfix = specs->res_str;
-	specs->res_str = ft_strjoin(specs->res_str, txt, specs);
-	free(leakfix);
-	free(txt);
-	if (fmt[i] == '%' && fmt[i + 1])
+	while (*pf->fmt != '\0')
 	{
-		reset_specs(specs);
-		leakfix = specs->res_str;
-		parse_flags(&fmt[++i], specs);
-		if (*leakfix)
-			free(leakfix);
+		i = 0;
+		while (pf->fmt[i] && pf->fmt[i] != '%')
+			i++;
+		txt = ft_strsub(pf->fmt, 0, i);
+//		leakfix = pf->res_str;
+		pf->res_str = ft_strjoin(pf->res_str, txt, pf);
+//		free(leakfix);
+		free(txt);
+		pf->fmt = &pf->fmt[i];
+		if (*pf->fmt == '%' && *(pf->fmt + 1))
+		{
+			reset_specs(pf);
+//			leakfix = pf->res_str;
+			pf->fmt++;
+			parse_flags(pf);
+//			if (*leakfix)
+//				free(leakfix);
+		}
+		pf->fmt++;
 	}
-//	specs->ret += ft_strlen(specs->res_str);
-//	printf("\n++++++++++++++++\nspecs->ret: %d\n", specs->ret);
-	return(specs->ret);
-//	return(specs->ret);
+//	pf->ret += ft_strlen(pf->res_str);
+//	printf("\n++++++++++++++++\npf->ret: %d\n", pf->ret);
+	return(pf->ret);
 }
 
-void		reset_specs(t_specs *specs)
+void		reset_specs(t_pf *pf)
 {
-	ft_bzero(specs->flags, 5);
-	specs->width = 0;
-	specs->prec = -1;
-	specs->len = no;
-	specs->convers = '\0';
+	ft_bzero(pf->flags, 5);
+	pf->width = 0;
+	pf->prec = -1;
+	pf->len = no;
+	pf->convers = '\0';
 }
 
-t_specs		*init_specs(void)
+t_pf		*init_specs(char *fmt)
 {
-	t_specs		*specs;
+	t_pf		*pf;
 
-	specs = (t_specs *)malloc(sizeof(t_specs));
-	specs->res_str = ft_strnew(1);
-	specs->ret = 0;
-	ft_bzero(specs->flags, 5);
-	specs->width = 0;
-	specs->prec = -1;
-	specs->len = no;
-	specs->convers = '\0';
-	return (specs);
+	pf = (t_pf *)malloc(sizeof(t_pf));
+	pf->fmt = fmt;
+	pf->res_str = ft_strnew(1);
+	pf->ret = 0;
+	ft_bzero(pf->flags, 5);
+	pf->width = 0;
+	pf->prec = -1;
+	pf->len = no;
+	pf->convers = '\0';
+	return (pf);
 }
 
 int			ft_printf(const char *format, ...)
 {
-	t_specs		*specs;
+	t_pf		*pf;
 	int			ret;
 
 	if (format == NULL)
@@ -76,26 +82,26 @@ int			ft_printf(const char *format, ...)
 		ft_putstr(format);
 		return(ft_strlen(format));
 	}
-	specs = init_specs();
+	pf = init_specs((char *)format);
 	ret = 0;
-	va_start(specs->args, format);
-	ret = print_format((char *)format, specs);
-	va_end(specs->args);
-	ft_putstr(specs->res_str);
-	if (*specs->res_str)
-		free(specs->res_str);
-	free(specs);
+	va_start(pf->args, format);
+	ret = print_format(pf);
+	va_end(pf->args);
+	ft_putstr(pf->res_str);
+	if (*pf->res_str)
+		free(pf->res_str);
+	free(pf);
 	return(ret); 
 }
 
 /*
 	printf("++++++++SPECS++++++++++\nflags: ");
 	for (int z = 0; z < 5; z++)
-		printf("%c", specs->flags[z]);
-	printf("\nwidth: %d\n", specs->width);
-	printf("precision: %d\n", specs->prec);
-	printf("length: %d\n", specs->len);
-	printf("conversion: %c\n+++++++++++++++++++++++\n\n", specs->convers);
+		printf("%c", pf->flags[z]);
+	printf("\nwidth: %d\n", pf->width);
+	printf("precision: %d\n", pf->prec);
+	printf("length: %d\n", pf->len);
+	printf("conversion: %c\n+++++++++++++++++++++++\n\n", pf->convers);
 */
 
 
