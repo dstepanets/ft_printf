@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void					convert_string(t_pf *pf)
+void					convert_s(t_pf *pf)
 {
-    
+
 }
 
 /*
     NEED TO HANDLE:
-        width, prec, -, 
+        width, prec, -
 
      s       The char * argument is expected to be a pointer to an array of
              character type (pointer to a string).  Characters from the array
