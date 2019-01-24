@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 HEAD = ./ft_printf.h
 SRCS =	ft_printf.c \
 		parser.c \
-		convert_c_s.c
+		convert_c_proc.c
 LIB_DIR = ./pf_libft/
 LIB_SRC =	ft_bzero.c \
 			ft_isdigit.c \

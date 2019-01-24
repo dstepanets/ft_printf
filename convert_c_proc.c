@@ -49,21 +49,15 @@ void		null_char_helper(t_pf *pf)
 		write(1, "\0", 1);
 	else if ((pf->width && !pf->flags[0]))
 	{
-		while (pf->width > 1)
-		{
+		while (pf->width-- > 1)
 			write(1, " ", 1);
-			pf->width--;
-		}
 		write(1, "\0", 1);
 	}
 	else if ((pf->width && pf->flags[0] == '-'))
 	{
 		write(1, "\0", 1);
-		while (pf->width > 1)
-		{
+		while (pf->width-- > 1)
 			write(1, " ", 1);
-			pf->width--;
-		}
 	}
 }
 

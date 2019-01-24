@@ -4,58 +4,48 @@ int		main(void)
 {
 	int ret = 0;
 	float num = -0.0;
-	
-/*	printf("pf_dec: %d\n", -135555);
-	printf("pf_float: %2.f\n", num);
-	printf("procent::%#05%::\n");
-	printf("------------------------------------------\n");
-*/
+
 /*
 	printf("==============CHARS==============\n");
 	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0);
 	printf("  ret: %d\n--------\n", ret);
-
+	ret = printf("1|%2c\n", 0);
+	printf("  ret: %d\n--------\n", ret);
+	ret = ft_printf("2|%2c\n", 0);
+	printf("  ret: %d\n--------\n", ret);
 
 	printf("==============%%%%%%%%%%==============\n");
 	ret = printf("pf_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
 	printf("  ret: %d\n--------\n", ret);
-*/
-
-/*	printf("-------------------------\n");
 	printf("|%5%|\n");
 	ft_printf("|%5%|\n");
-
 	printf("|%-5%|\n");
 	ft_printf("|%-5%|\n");
-
 	printf("|%.0%|\n");
 	ft_printf("|%.0%|\n");
+	ret = printf("|%   %|\n", "test");
+	printf("  ret: %d\n--------\n", ret);
+	ret = ft_printf("|%   %|\n", "test");
+	printf("  ret: %d\n--------\n", ret);
+	printf("% ");
+	ft_printf("% ");
+	printf("% h");
+	ft_printf("% h");
+	printf("|% %|\n", "test");
+	ft_printf("|% %|\n", "test");
 */
-//	ret = printf("|%   %|\n", "test");
-//	printf("  ret: %d\n--------\n", ret);
-//	ret = ft_printf("|%   %|\n", "test");
-//	printf("  ret: %d\n--------\n", ret);
-//	printf("-------------------------\n");
-//	printf("% ");
-//	ft_printf("% ");
-//printf("% h");
-//	ft_printf("% h");
-//	printf("|% %|\n", "test");
-//	ft_printf("|% %|\n", "test");
+
+
+
 
 
 //	printf("------------TO FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-------------\n");
 //	printf("|%%%777\n");
 //	ft_printf("|%%%777\n");
-
-	ret = printf("1|%2c\n", 0);
-	printf("  ret: %d\n--------\n", ret);
-	ret = ft_printf("2|%2c\n", 0);
-	printf("  ret: %d\n--------\n", ret);
 
 //	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 //	system("leaks a.out");
