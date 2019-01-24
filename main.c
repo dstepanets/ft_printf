@@ -38,12 +38,15 @@ int		main(void)
 	printf("|% %|\n", "test");
 	ft_printf("|% %|\n", "test");
 */
+	printf("==============STRINGS==============\n");
+	ret = printf("%5.2s is a string", "this");
+	printf("\n>>ret: %d\n--------\n", ret);
+	ret = ft_printf("%5.2s is a string", "this");
+	printf("\n>>ret: %d\n--------\n", ret);
 
 
 
-
-
-//	printf("------------TO FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-------------\n");
+//	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
 //	ft_printf("|%%%777\n");
 

@@ -18,15 +18,11 @@ void		parse_convers(t_pf *pf)
 
     c[1] = '\0';
 	if (*pf->fmt == '%')
-	{
-		pf->convers = '%';
 		convert_procent(pf);
-	}
 	else if (*pf->fmt == 'c')
-	{
-		pf->convers = 'c';
 		convert_c(pf);
-	}
+	else if (*pf->fmt == 's')
+		convert_s(pf);
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
