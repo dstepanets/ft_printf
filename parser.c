@@ -33,8 +33,8 @@ void		parse_convers(t_pf *pf)
 		pf->res_str = ft_strjoin(pf->res_str, c, pf);
 	}
 
-	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
-		pf->fmt++;
+//	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
+//		pf->fmt++;
 }
 
 void		parse_length(t_pf *pf)

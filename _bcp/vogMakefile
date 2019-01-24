@@ -26,22 +26,15 @@ LIB_SRC =	ft_bzero.c \
 			ft_strjoin.c \
 			ft_strlen.c \
 			ft_strnew.c \
-			ft_strsub.c
+			ft_strsub.c \
+			ft_putstr_fd.c \
+			ft_memdel.c
 LIB = $(addprefix $(LIB_DIR), $(LIB_SRC))
 
 OBJS = $(SRCS:.c=.o) $(LIB_SRC:.c=.o)
 
 .PHONY: all clean fclean re 
 
-####################TO DELETE##########################
-b: all clean
-	$(CC) -g main.c $(NAME)
-	@echo "\033[32ma.out compiled\033[0m"
-
-bw: all clean
-	$(CC) $(FLAGS) -g main.c $(NAME) $(LIBFT)
-	@echo "\033[32ma.out compiled with -W flags.\033[0m"
-######################################################
 all: $(NAME)
 
 $(OBJS):
@@ -61,9 +54,5 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	@echo "\033[31mft_printf.a removed.\033[0m"
-	rm -Rf ./a.out a.out.dSYM		#a.out a.out.dSYM !!!TO DELETE
-	@echo "\033[a.out removed.\033[0m"
 
-re: fclean b
-	
-#re: fclean all
+re: fclean all

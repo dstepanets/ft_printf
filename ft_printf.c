@@ -39,6 +39,8 @@ int			parse_format(t_pf *pf)
 //			if (pf->convers)
 //				free(leakfix);
 		}
+		if (*pf->fmt != '\0')
+			pf->fmt++;
 //		pf->fmt++;
 	}
 //	pf->ret += ft_strlen(pf->res_str);
