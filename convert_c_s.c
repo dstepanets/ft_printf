@@ -41,18 +41,43 @@ void		null_char_helper(t_pf *pf)
 
 	leakfix = pf->res_str;
 	ft_putstr(pf->res_str);
-//	ft_memdel((void *)leakfix);
 	if (*pf->res_str)
 		free(pf->res_str);
 	pf->res_str = ft_strnew(1);
-	write(1, "\0", 1);
-	pf->ret++;
+	pf->width ? pf->ret += pf->width : pf->ret++;
+	if (!pf->width)
+		write(1, "\0", 1);
+	else if ((pf->width && !pf->flags[0]))
+	{
+		while (pf->width > 1)
+		{
+			write(1, " ", 1);
+			pf->width--;
+		}
+		write(1, "\0", 1);
+	}
+	else if ((pf->width && pf->flags[0] == '-'))
+	{
+		write(1, "\0", 1);
+		while (pf->width > 1)
+		{
+			write(1, " ", 1);
+			pf->width--;
+		}
+	}
 }
 
 void		convert_c(t_pf *pf)
 {
 	unsigned char	res[pf->width + 2];
+	va_list			args2;
 
+	va_copy(args2, pf->args);
+	if (va_arg(args2, int) == '\0')
+	{
+		null_char_helper(pf);
+		return ;
+	}
 	if (pf->width)
 	{
 		res[pf->width] = '\0';
@@ -62,26 +87,15 @@ void		convert_c(t_pf *pf)
 		if (pf->flags[0] == '-')
 			res[0] = va_arg(pf->args, int);
 		else
-		{
 			res[pf->width - 1] = va_arg(pf->args, int);
-			if (res[pf->width - 1] == 0)
-			{
-				null_char_helper(pf);
-				return ;
-			}
-		}
 	}
 	else
 	{
 		res[1] = '\0';
 		res[0] = va_arg(pf->args, int);
 	}
-	if (res[0] == 0)
-	{
-		null_char_helper(pf);
-		return ;
-	}
 	pf->res_str = ft_strjoin(pf->res_str, (const char *)res, pf);
+	va_end(args2);
 }
 
 /*        

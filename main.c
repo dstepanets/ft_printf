@@ -52,6 +52,11 @@ int		main(void)
 //	printf("|%%%777\n");
 //	ft_printf("|%%%777\n");
 
+	ret = printf("1|%2c\n", 0);
+	printf("  ret: %d\n--------\n", ret);
+	ret = ft_printf("2|%2c\n", 0);
+	printf("  ret: %d\n--------\n", ret);
+
 //	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 //	system("leaks a.out");
 	return (0);
