@@ -25,7 +25,7 @@ int			parse_format(t_pf *pf)
 			i++;
 		txt = ft_strsub(pf->fmt, 0, i);
 //		leakfix = pf->res_str;
-		pf->res_str = ft_strjoin(pf->res_str, txt, pf);
+		pf->res_str = pf_strjoin(pf, txt);
 //		free(leakfix);
 		free(txt);
 		pf->fmt = &pf->fmt[i];

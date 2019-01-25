@@ -18,7 +18,7 @@ void		parse_convers(t_pf *pf)
 
     c[1] = '\0';
 	if (*pf->fmt == '%')
-		convert_procent(pf);
+		convert_percent(pf);
 	else if (*pf->fmt == 'c')
 		convert_c(pf);
 	else if (*pf->fmt == 's')
@@ -26,7 +26,7 @@ void		parse_convers(t_pf *pf)
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
-		pf->res_str = ft_strjoin(pf->res_str, c, pf);
+		pf->res_str = pf_strjoin(pf, c);
 	}
 
 //	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')

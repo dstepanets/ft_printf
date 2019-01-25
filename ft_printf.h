@@ -49,21 +49,23 @@ void					parse_convers(t_pf *pf);
 
 void					convert_c(t_pf *pf);
 void					null_char_helper(t_pf *pf);
-void					convert_procent(t_pf *pf);
+void					convert_percent(t_pf *pf);
 void					convert_s(t_pf *pf);
 /*
 ** libft functions
 */
 
+char	*pf_strjoin(t_pf *pf, char *s2);
 void	ft_bzero(void *s, size_t n);
 int		ft_isdigit(int c);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_putstr(char const *s);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2, t_pf *pf);
 size_t	ft_strlen(const char *s);
 char	*ft_strnew(size_t size);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
+char	*ft_strncat(char *s1, const char *s2, size_t n);
 
 /*
 ** TEMP

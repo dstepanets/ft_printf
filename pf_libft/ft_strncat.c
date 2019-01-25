@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 18:24:19 by dstepane          #+#    #+#             */
-/*   Updated: 2018/11/07 18:24:21 by dstepane         ###   ########.fr       */
+/*   Created: 2018/11/02 18:40:48 by dstepane          #+#    #+#             */
+/*   Updated: 2018/11/02 18:40:50 by dstepane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*pf_strjoin(t_pf *pf, char *s2)
+char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	char	*res;
-	int		i;
-	int		j;
+	char *str;
 
-	if (!pf->res_str || !s2)
-		return (NULL);
-	if (!(res = (char *)malloc(ft_strlen(pf->res_str) + ft_strlen(s2) + 1)))
-		return (NULL);
-	i = 0;
-	j = 0;
-	pf->ret += ft_strlen(s2);
-	while (pf->res_str[j])
-		res[i++] = pf->res_str[j++];
-	while (*s2)
-		res[i++] = *s2++;
-	res[i] = '\0';
-	free((void *)pf->res_str);
-//	ft_memdel((void*)s1);
-	return (res);
+	str = s1;
+	while (*s1)
+		s1++;
+	while (*s2 && n--)
+		*s1++ = *s2++;
+	*s1 = '\0';
+	return (str);
 }
