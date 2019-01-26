@@ -52,6 +52,9 @@ int		main(void)
 	ret = ft_printf("%s %s", NULL, "string");
 	printf("\n>>ret: %d\n--------\n", ret);
 */
+	printf("==============INTS==============\n");
+	printf("\n>>ret: %d\n--------\n", printf("d:|%-6.3d|", -42));
+	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%-6.3d|", -42));
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");

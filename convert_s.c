@@ -35,12 +35,12 @@ void		convert_s(t_pf *pf)
 			ft_memset(res, '0', pf->width) : ft_memset(res, ' ', pf->width);
 		pf->flags[0] == '-' ? ft_memmove(res, str, len) :
 			ft_strncpy(&res[s_position_crutch(pf->width, len)], str, len);
-		pf->res_str = pf_strjoin(pf, res);
+		pf->print = pf_strjoin(pf, res);
 	}
 	else
 	{
 		ft_strncpy(res, str, len);
-		pf->res_str = pf_strjoin(pf, res);
+		pf->print = pf_strjoin(pf, res);
 	}
 	free(res);
 }

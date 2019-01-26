@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_c_s.c                                      :+:      :+:    :+:   */
+/*   convert_c_percent.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/13 18:10:00 by dstepane          #+#    #+#             */
-/*   Updated: 2019/01/13 18:10:02 by dstepane         ###   ########.fr       */
+/*   Created: 2019/01/26 19:37:41 by dstepane          #+#    #+#             */
+/*   Updated: 2019/01/26 19:37:45 by dstepane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ void		convert_percent(t_pf *pf)
 		res[1] = '\0';
 		res[0] = '%';
 	}
-	pf->res_str = pf_strjoin(pf, (char *)res);
+	pf->print = pf_strjoin(pf, (char *)res);
 }
 
 void		null_char_helper(t_pf *pf)
 {
 	char	*leakfix;
 
-	leakfix = pf->res_str;
-	ft_putstr(pf->res_str);
-	if (*pf->res_str)
-		free(pf->res_str);
-	pf->res_str = ft_strnew(1);
+	leakfix = pf->print;
+	ft_putstr(pf->print);
+	if (*pf->print)
+		free(pf->print);
+	pf->print = ft_strnew(1);
 	pf->width ? pf->ret += pf->width : pf->ret++;
 	if (!pf->width)
 		write(1, "\0", 1);
@@ -87,7 +87,7 @@ void		convert_c(t_pf *pf)
 		res[1] = '\0';
 		res[0] = va_arg(pf->args, int);
 	}
-	pf->res_str = pf_strjoin(pf, (char *)res);
+	pf->print = pf_strjoin(pf, (char *)res);
 	va_end(args2);
 }
 

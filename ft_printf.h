@@ -25,16 +25,16 @@
 
 typedef struct					s_pf
 {
-	va_list						args;
-	char						*fmt;
-	char						*res_str;
-	int							ret;
-	char						flags[5];
-	int							width;
-	int							prec;
-	enum {no, hh, h, l, ll, L}	len;
-	char						convers;	//maybe no need in it?
-}								t_pf;
+	va_list								args;
+	char								*fmt;
+	char								*print;
+	int									ret;
+	char								flags[5];
+	int									width;
+	int									prec;
+	enum {no, hh, h, l, ll, L, j, z}	len;
+	char								convers;	//maybe no need in it?
+}										t_pf;
 
 int						ft_printf(const char *format, ...);
 t_pf					*init_specs(char *fmt);
@@ -52,6 +52,9 @@ void					null_char_helper(t_pf *pf);
 void					convert_percent(t_pf *pf);
 void					convert_s(t_pf *pf);
 int						s_position_crutch(int width, int len);
+void					convert_di(t_pf *pf);
+intmax_t				length_mod(t_pf *pf);
+
 /*
 ** libft functions
 */

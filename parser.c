@@ -23,10 +23,12 @@ void		parse_convers(t_pf *pf)
 		convert_c(pf);
 	else if (*pf->fmt == 's')
 		convert_s(pf);
+	else if (*pf->fmt == 'd' || *pf->fmt == 'i')
+		convert_di(pf);
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
-		pf->res_str = pf_strjoin(pf, c);
+		pf->print = pf_strjoin(pf, c);
 	}
 
 //	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')

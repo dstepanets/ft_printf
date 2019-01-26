@@ -18,20 +18,20 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	int		i;
 	int		j;
 
-	if (!pf->res_str || !s2)
+	if (!pf->print || !s2)
 		return (NULL);
-	if (!(res = (char *)malloc(ft_strlen(pf->res_str) + ft_strlen(s2) + 1)))
+	if (!(res = (char *)malloc(ft_strlen(pf->print) + ft_strlen(s2) + 1)))
 		return (NULL);
 	i = 0;
 	j = 0;
 	pf->ret += ft_strlen(s2);
-	while (pf->res_str[j])
-		res[i++] = pf->res_str[j++];
+	while (pf->print[j])
+		res[i++] = pf->print[j++];
 	while (*s2)
 		res[i++] = *s2++;
 	res[i] = '\0';
-	if(pf->res_str)
-		free((void *)pf->res_str);
+	if(pf->print)
+		free((void *)pf->print);
 //	ft_memdel((void*)s1);
 	return (res);
 }

@@ -24,8 +24,8 @@ int			parse_format(t_pf *pf)
 		while (pf->fmt[i] && pf->fmt[i] != '%')
 			i++;
 		txt = ft_strsub(pf->fmt, 0, i);
-//		leakfix = pf->res_str;
-		pf->res_str = pf_strjoin(pf, txt);
+//		leakfix = pf->print;
+		pf->print = pf_strjoin(pf, txt);
 //		free(leakfix);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
@@ -33,9 +33,9 @@ int			parse_format(t_pf *pf)
 		{
 			reset_specs(pf);
 			pf->fmt++;
-//			leakfix = pf->res_str;
+//			leakfix = pf->print;
 			parse_flags(pf);
-//			if (*pf->res_str)
+//			if (*pf->print)
 //			if (pf->convers)
 //				free(leakfix);
 		}
@@ -43,7 +43,7 @@ int			parse_format(t_pf *pf)
 			pf->fmt++;
 //		pf->fmt++;
 	}
-//	pf->ret += ft_strlen(pf->res_str);
+//	pf->ret += ft_strlen(pf->print);
 //	printf("\n++++++++++++++++\npf->ret: %d\n", pf->ret);
 	return(pf->ret);
 }
@@ -63,7 +63,7 @@ t_pf		*init_specs(char *fmt)
 
 	pf = (t_pf *)malloc(sizeof(t_pf));
 	pf->fmt = fmt;
-	pf->res_str = ft_strnew(1);
+	pf->print = ft_strnew(1);
 	pf->ret = 0;
 	ft_bzero(pf->flags, 5);
 	pf->width = 0;
@@ -90,9 +90,9 @@ int			ft_printf(const char *format, ...)
 	va_start(pf->args, format);
 	ret = parse_format(pf);
 	va_end(pf->args);
-	ft_putstr(pf->res_str);
-	if (*pf->res_str)
-		free(pf->res_str);
+	ft_putstr(pf->print);
+	if (*pf->print)
+		free(pf->print);
 	free(pf);
 	return(ret); 
 }
