@@ -91,7 +91,7 @@ int			ft_printf(const char *format, ...)
 	ret = parse_format(pf);
 	va_end(pf->args);
 	ft_putstr(pf->res_str);
-//	if (*pf->res_str)
+	if (*pf->res_str)
 		free(pf->res_str);
 	free(pf);
 	return(ret); 

@@ -39,9 +39,9 @@ int		main(void)
 	ft_printf("|% %|\n", "test");
 */
 	printf("==============STRINGS==============\n");
-	ret = printf("%5.2s is a string", "this");
+	ret = printf("%-6.5s is a string", "this");
 	printf("\n>>ret: %d\n--------\n", ret);
-	ret = ft_printf("%5.2s is a string", "this");
+	ret = ft_printf("%-6.5s is a string", "this");
 	printf("\n>>ret: %d\n--------\n", ret);
 
 

@@ -28,22 +28,23 @@ void					convert_s(t_pf *pf)
 	pf->width > len ? (res = ft_strnew(pf->width)) : (res = ft_strnew(len));
 	if ((pf->prec == -1 || pf->prec >= len) && pf->width <= len)
 		pf->res_str = pf_strjoin(pf, str);
-	else if (pf->prec >= pf->width)
+	else if (pf->prec >= pf->width && pf->width <= len)
 		pf->res_str = pf_strjoin(pf, ft_strncpy(res, str, pf->prec));
 	else if (pf->prec != -1 && pf->prec < pf->width && pf->width > len)
 	{
-		len = pf->width;
 		pf->flags[3] == '0' ? ft_memset(res, '0', pf->width) :
 			ft_memset(res, ' ', pf->width);
-		printf("res:%s\n", res);
-		pf->flags[0] == '-' ? ft_strncat(res, str, pf->prec) :
-			ft_strncat(&res[pf->width - pf->prec], str, pf->prec);
-		pf_strjoin(pf, res);
-		free(res);
+		pf->flags[0] == '-' ? ft_memmove(res, str, pf->prec) :
+			ft_memmove(&res[pf->width - pf->prec], str, pf->prec);
+		pf->res_str = pf_strjoin(pf, res);
 	}
+//	else if (pf->prec < pf->width & pf->width > len)
+//	{
+//
+//	}
 
 
-
+	free(res);
 }
 
 /*
