@@ -20,30 +20,23 @@ void					convert_s(t_pf *pf)
 
 	str = va_arg(pf->args, char*);
 	if (str == NULL)
-	{
 		str = "(null)";
-		return ;
-	}
-	len = ft_strlen(str);
+	(pf->prec > -1 && pf->prec < (int)ft_strlen(str)) ? 
+		(len = pf->prec) : (len = ft_strlen(str));
 	pf->width > len ? (res = ft_strnew(pf->width)) : (res = ft_strnew(len));
-	if ((pf->prec == -1 || pf->prec >= len) && pf->width <= len)
-		pf->res_str = pf_strjoin(pf, str);
-	else if (pf->prec >= pf->width && pf->width <= len)
-		pf->res_str = pf_strjoin(pf, ft_strncpy(res, str, pf->prec));
-	else if (pf->prec != -1 && pf->prec < pf->width && pf->width > len)
+	if (pf->width)
 	{
-		pf->flags[3] == '0' ? ft_memset(res, '0', pf->width) :
-			ft_memset(res, ' ', pf->width);
-		pf->flags[0] == '-' ? ft_memmove(res, str, pf->prec) :
-			ft_memmove(&res[pf->width - pf->prec], str, pf->prec);
+		(pf->flags[3] == '0' && !pf->flags[0]) ?
+			ft_memset(res, '0', pf->width) : ft_memset(res, ' ', pf->width);
+		pf->flags[0] == '-' ? ft_memmove(res, str, len) :
+			ft_strncpy(&res[pf->width - len], str, len);
 		pf->res_str = pf_strjoin(pf, res);
 	}
-//	else if (pf->prec < pf->width & pf->width > len)
-//	{
-//
-//	}
-
-
+	else
+	{
+		ft_strncpy(res, str, len);
+		pf->res_str = pf_strjoin(pf, res);
+	}
 	free(res);
 }
 

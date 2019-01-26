@@ -30,7 +30,7 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	while (*s2)
 		res[i++] = *s2++;
 	res[i] = '\0';
-	if(*pf->res_str)
+	if(pf->res_str)
 		free((void *)pf->res_str);
 //	ft_memdel((void*)s1);
 	return (res);
