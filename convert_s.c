@@ -12,11 +12,16 @@
 
 #include "ft_printf.h"
 
-void					convert_s(t_pf *pf)
+int			s_position_crutch(int width, int len)
+{
+	return((width - len) > 0 ? (width - len) : 0);
+}
+
+void		convert_s(t_pf *pf)
 {
 	char	*str;
 	char	*res;
-	int  	len;
+	int		len;
 
 	str = va_arg(pf->args, char*);
 	if (str == NULL)
@@ -29,7 +34,7 @@ void					convert_s(t_pf *pf)
 		(pf->flags[3] == '0' && !pf->flags[0]) ?
 			ft_memset(res, '0', pf->width) : ft_memset(res, ' ', pf->width);
 		pf->flags[0] == '-' ? ft_memmove(res, str, len) :
-			ft_strncpy(&res[pf->width - len], str, len);
+			ft_strncpy(&res[s_position_crutch(pf->width, len)], str, len);
 		pf->res_str = pf_strjoin(pf, res);
 	}
 	else
