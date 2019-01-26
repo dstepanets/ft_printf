@@ -75,8 +75,8 @@ void		convert_c(t_pf *pf)
 	if (pf->width)
 	{
 		res[pf->width] = '\0';
-		pf->flags[3] == '0' ? ft_memset(res, '0', pf->width) :
-			ft_memset(res, ' ', pf->width);
+		pf->flags[3] == '0' && !pf->flags[0] ?
+			ft_memset(res, '0', pf->width) : ft_memset(res, ' ', pf->width);
 		if (pf->flags[0] == '-')
 			res[0] = va_arg(pf->args, int);
 		else

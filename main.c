@@ -37,7 +37,7 @@ int		main(void)
 	ft_printf("% h");
 	printf("|% %|\n", "test");
 	ft_printf("|% %|\n", "test");
-*/
+
 	printf("==============STRINGS==============\n");
 	ret = printf("%6.6s is a string", "this");
 	printf("\n>>ret: %d\n--------\n", ret);
@@ -51,7 +51,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ret);
 	ret = ft_printf("%s %s", NULL, "string");
 	printf("\n>>ret: %d\n--------\n", ret);
-
+*/
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
