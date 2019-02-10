@@ -11,7 +11,12 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+/*
+char            *apply_width(char *str)
+{
 
+}
+*/
 intmax_t		length_mod(t_pf *pf)
 {
 	intmax_t	num;
@@ -37,8 +42,13 @@ intmax_t		length_mod(t_pf *pf)
 void			convert_di(t_pf *pf)
 {
 	intmax_t	num;
+    char        *res;
 
 	num = length_mod(pf);
+    res = pf_itoa(num, pf);
+
+
+    pf->print = pf_strjoin(pf, res);
 
 }
 

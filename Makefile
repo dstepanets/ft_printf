@@ -28,7 +28,7 @@ LIB_SRC = *.c
 #				ft_memset.c \
 #				ft_putstr.c \
 #				ft_strchr.c \
-#				ft_strjoin.c \
+#				pf_strjoin.c \
 #				ft_strlen.c \
 #				ft_strnew.c \
 #				ft_strsub.c \
