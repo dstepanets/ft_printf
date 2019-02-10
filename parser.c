@@ -89,7 +89,7 @@ void		parse_flags(t_pf *pf)
 		else if (*pf->fmt == '+')
 			pf->flags[1] = '+';
 		else if (*pf->fmt == ' ')
-			pf->flags[2] = 's';
+			pf->flags[2] = ' ';
 		else if (*pf->fmt == '0')
 			pf->flags[3] = '0';
 		else if (*pf->fmt == '#')
