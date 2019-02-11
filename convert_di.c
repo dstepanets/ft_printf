@@ -55,35 +55,55 @@ static void			write_num(char *res, intmax_t num, int nlen, int i)
 	}
 }
 
+static void			apply_specs2(t_pf *pf, intmax_t num, char *res, int rlen)
+{
+	int			nlen;
+	int			i;
+
+	nlen = num_len(num);
+	(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
+	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
+	{
+		!pf->flags[0] ? i-- : 0;
+		if (num < 0)
+			res[i] = '-';
+		else if (pf->flags[2] == ' ' && !pf->flags[1])
+			res[i] = ' ';
+		else if (pf->flags[1] == '+')
+			res[i] = '+';
+		i++;
+	}
+	while (pf->prec-- > nlen)
+		res[i++] = '0';
+	write_num(res, num, nlen, i);
+}
+
 static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 {
 	int			nlen;
 	int			i;
 
-	if (pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1)
-		ft_memset(res, '0', rlen);
-	else
-		ft_memset(res, ' ', rlen);
+	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
+		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	nlen = num_len(num);
 	(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
-	if (pf->prec == -1)
+	if (pf->prec <= nlen)
 	{
-//		if (pf->flags[0] == '-')
-//		{
-			if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
-			{
-				i--;
-				if (num < 0)
-					res[0] = '-';
-				else if (pf->flags[2] == ' ' && !pf->flags[1])
-					res[0] = ' ';
-				else if (pf->flags[1] == '+')
-					res[0] = '+';
-				i++;
-			}
-			write_num(res, num, nlen, i);
-//		}
+		if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
+		{
+			!pf->flags[0] ? i-- : 0;
+			if (num < 0)
+				res[i] = '-';
+			else if (pf->flags[2] == ' ' && !pf->flags[1])
+				res[i] = ' ';
+			else if (pf->flags[1] == '+')
+				res[i] = '+';
+			i++;
+		}
+		write_num(res, num, nlen, i);
 	}
+	else
+		apply_specs2(pf, num, res, rlen);
 }
 
 static intmax_t		length_mod(t_pf *pf)
