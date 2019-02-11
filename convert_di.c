@@ -55,27 +55,20 @@ static void			write_num(char *res, intmax_t num, int nlen, int i)
 	}
 }
 
-static void			apply_specs2(t_pf *pf, intmax_t num, char *res, int rlen)
+static void			apply_sign(t_pf *pf, char *res, intmax_t num, int *i)
 {
-	int			nlen;
-	int			i;
-
-	nlen = num_len(num);
-	(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
+	
 	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
 	{
-		!pf->flags[0] ? i-- : 0;
+		!pf->flags[0] ? (*i)-- : 0;
 		if (num < 0)
-			res[i] = '-';
+			res[*i] = '-';
 		else if (pf->flags[2] == ' ' && !pf->flags[1])
-			res[i] = ' ';
+			res[*i] = ' ';
 		else if (pf->flags[1] == '+')
-			res[i] = '+';
-		i++;
+			res[*i] = '+';
+		(*i)++;
 	}
-	while (pf->prec-- > nlen)
-		res[i++] = '0';
-	write_num(res, num, nlen, i);
 }
 
 static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
@@ -86,24 +79,19 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
 		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	nlen = num_len(num);
-	(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
 	if (pf->prec <= nlen)
 	{
-		if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
-		{
-			!pf->flags[0] ? i-- : 0;
-			if (num < 0)
-				res[i] = '-';
-			else if (pf->flags[2] == ' ' && !pf->flags[1])
-				res[i] = ' ';
-			else if (pf->flags[1] == '+')
-				res[i] = '+';
-			i++;
-		}
-		write_num(res, num, nlen, i);
+		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
+		apply_sign(pf, res, num, &i);
 	}
 	else
-		apply_specs2(pf, num, res, rlen);
+	{
+		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
+		apply_sign(pf, res, num, &i);
+		while (pf->prec-- > nlen)
+			res[i++] = '0';
+	}
+	write_num(res, num, nlen, i);
 }
 
 static intmax_t		length_mod(t_pf *pf)
@@ -138,18 +126,13 @@ void			convert_di(t_pf *pf)
 
 	if (num == -9223372036854775807)
 		pf->print = pf_strjoin(pf, ft_strdup("−9223372036854775807"));
-
-//  res = pf_itoa(num, pf);
 	rlen = res_len(pf, num);
 	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))
 		return ;
 	res[rlen] = '\0';
 	apply_specs(pf, num, res, rlen);
-
-
 	pf->print = pf_strjoin(pf, res);
 	free(res);
-
 }
 
 

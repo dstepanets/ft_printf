@@ -69,7 +69,6 @@ char	*ft_strnew(size_t size);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
 void	*ft_memmove(void *dest, const void *src, size_t n);
-char	*pf_itoa(intmax_t n, t_pf *pf);
 char	*ft_strdup(const char *s1);
 
 /*
