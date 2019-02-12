@@ -41,7 +41,7 @@ static int			res_len(t_pf *pf, intmax_t num)
 	}
 	else
 		(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
-	printf(" rlen: %d\n", rlen);
+//	printf(" rlen: %d\n", rlen);
 	return (rlen);
 }
 
@@ -55,39 +55,47 @@ static void			write_num(char *res, intmax_t num, int nlen, int i)
 	}
 }
 
-static void			apply_sign(t_pf *pf, char *res, intmax_t num, int *i)
+static void			apply_sign(t_pf *pf, char *res, intmax_t num, int rlen)
 {
-	
-	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
-	{
-		!pf->flags[0] ? (*i)-- : 0;
-		if (num < 0)
-			res[*i] = '-';
-		else if (pf->flags[2] == ' ' && !pf->flags[1])
-			res[*i] = ' ';
-		else if (pf->flags[1] == '+')
-			res[*i] = '+';
-		(*i)++;
-	}
+	int			nlen;
+	int i;
+
+	nlen = num_len(num);
+	if (pf->flags[0] || (pf->flags[3] && pf->prec <= nlen))
+		i = 0;
+	else if (!pf->flags[0] && pf->prec <= nlen)
+		i = rlen - nlen - 1;
+	else if (!pf->flags[0] && pf->prec > nlen)
+		i = rlen - pf->prec - 1;
+	if (num < 0)
+		res[i] = '-';
+	else if (pf->flags[2] == ' ' && !pf->flags[1])
+		res[i] = ' ';
+	else if (pf->flags[1] == '+')
+		res[i] = '+';
 }
 
 static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 {
 	int			nlen;
 	int			i;
+	int			s;
 
-	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
-		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	nlen = num_len(num);
-	if (pf->prec <= nlen)
+	i = 0;
+	s = 0;
+	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec <= nlen) ?
+		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
 	{
-		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
-		apply_sign(pf, res, num, &i);
+		apply_sign(pf, res, num, rlen);
+		s++;
 	}
-	else
+	if (pf->prec <= nlen)
+		(pf->flags[0] == '-') ? (i += s) : (i = (rlen - nlen));
+	else if (pf->prec > nlen)
 	{
-		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
-		apply_sign(pf, res, num, &i);
+		(pf->flags[0] == '-') ? (i += s) : (i = (rlen - pf->prec));
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
