@@ -26,7 +26,7 @@ static int			res_len(t_pf *pf, intmax_t num)
 {
 	int			rlen;
 
-	rlen = num_len(num);
+	(num == 0 && pf->prec == 0) ? (rlen = 0) : (rlen = num_len(num));
 	if (pf->width || pf->prec > -1)
 	{
 		if (pf->width > rlen && pf->width > pf->prec)
@@ -81,7 +81,7 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	int			i;
 	int			s;
 
-	nlen = num_len(num);
+	(num == 0 && pf->prec == 0) ? (nlen = 0) : (nlen = num_len(num));
 	i = 0;
 	s = 0;
 	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec <= nlen) ?
@@ -132,8 +132,11 @@ void			convert_di(t_pf *pf)
 
 	num = length_mod(pf);
 
-	if (num == -9223372036854775807)
-		pf->print = pf_strjoin(pf, ft_strdup("−9223372036854775807"));
+	if (num == LONG_MIN)
+	{
+		pf->print = pf_strjoin(pf, ft_strdup("-9223372036854775808"));
+		return ;
+	}
 	rlen = res_len(pf, num);
 	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))
 		return ;

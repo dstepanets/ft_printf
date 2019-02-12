@@ -53,8 +53,11 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ret);
 */
 	printf("==============INTS==============\n");
-	printf("\n>>ret: %d\n--------\n", printf("d:|%-5d|", -42));
-	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%-5d|", -42));
+	printf("\n>>ret: %d\n--------\n", printf("d:|%.d %.0d|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%.d %.0d|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
+
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");

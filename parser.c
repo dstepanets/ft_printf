@@ -37,7 +37,8 @@ void		parse_convers(t_pf *pf)
 
 void		parse_length(t_pf *pf)
 {
-	if (*pf->fmt == 'h' || *pf->fmt == 'l' || *pf->fmt == 'L')
+	if (*pf->fmt == 'h' || *pf->fmt == 'l' || *pf->fmt == 'L' ||
+		*pf->fmt == 'j' || *pf->fmt == 'z')
 	{
 		if (*pf->fmt == 'h' && *(pf->fmt + 1) == 'h')
 		{
@@ -55,6 +56,10 @@ void		parse_length(t_pf *pf)
 			pf->len = l;
 		if (*pf->fmt == 'L')
 			pf->len = L;
+		if (*pf->fmt == 'j')
+			pf->len = j;
+		if (*pf->fmt == 'z')
+			pf->len = z;
 		pf->fmt++;
 	}
 	parse_convers(pf);
