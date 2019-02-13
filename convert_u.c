@@ -32,16 +32,7 @@ static uintmax_t	uint_length_mod(t_pf *pf)
 		num = (uintmax_t)(va_arg(pf->args, uintmax_t));
 	else if (pf->len == z)
 		num = (size_t)(va_arg(pf->args, size_t));
-	return(num);
-}
-
-static void			write_num(char *res, uintmax_t num, int nlen, int i)
-{
-	while (nlen--)
-	{
-		res[i + nlen] = (num % 10) + '0';
-		num /= 10;
-	}
+	return((uintmax_t)num);
 }
 
 static int			num_len(uintmax_t num)
@@ -66,7 +57,7 @@ static int			res_len(t_pf *pf, uintmax_t num)
 	return (rlen);
 }
 
-static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
+static void			apply_specs(t_pf *pf, uintmax_t num, char *res, int rlen)
 {
 	int			nlen;
 	int			i;
@@ -83,7 +74,11 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
-	write_num(res, num, nlen, i);
+	while (nlen--)
+	{
+		res[i + nlen] = (num % 10) + '0';
+		num /= 10;
+	}
 }
 
 void				convert_u(t_pf *pf)
