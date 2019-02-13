@@ -25,6 +25,8 @@ void		parse_convers(t_pf *pf)
 		convert_s(pf);
 	else if (*pf->fmt == 'd' || *pf->fmt == 'i')
 		convert_di(pf);
+	else if (*pf->fmt == 'u' || *pf->fmt == 'U')
+		convert_u(pf);
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;

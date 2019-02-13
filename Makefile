@@ -20,7 +20,8 @@ SRCS =	ft_printf.c \
 		parser.c \
 		convert_c_percent.c \
 		convert_s.c \
-		convert_di.c
+		convert_di.c \
+		convert_u.c
 LIB_DIR = ./pf_libft/
 LIB_SRC = *.c
 #	LIB_SRC =	ft_bzero.c \

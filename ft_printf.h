@@ -54,6 +54,7 @@ void					convert_percent(t_pf *pf);
 void					convert_s(t_pf *pf);
 int						s_position_crutch(int width, int len);
 void					convert_di(t_pf *pf);
+void					convert_u(t_pf *pf);
 
 /*
 ** libft functions

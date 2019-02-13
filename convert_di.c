@@ -12,6 +12,28 @@
 
 #include "ft_printf.h"
 
+static intmax_t		int_length_mod(t_pf *pf)
+{
+	intmax_t	num;
+
+	num = 0;
+	if (pf->len == no)
+		num = (int)(va_arg(pf->args, int));
+	else if (pf->len == hh)
+		num = (signed char)(va_arg(pf->args, int));
+	else if (pf->len == h)
+		num = (short)(va_arg(pf->args, int));
+	else if (pf->len == l)
+		num = (long)(va_arg(pf->args, long int));
+	else if (pf->len == ll)
+		num = (long long)(va_arg(pf->args, long long int));
+	else if (pf->len == j)
+		num = (intmax_t)(va_arg(pf->args, intmax_t));
+	else if (pf->len == z)
+		num = (size_t)(va_arg(pf->args, size_t));
+	return(num);
+}
+
 static int			num_len(intmax_t num)
 {
 	int			nlen;
@@ -41,7 +63,6 @@ static int			res_len(t_pf *pf, intmax_t num)
 	}
 	else
 		(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
-//	printf(" rlen: %d\n", rlen);
 	return (rlen);
 }
 
@@ -84,7 +105,7 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	(num == 0 && pf->prec == 0) ? (nlen = 0) : (nlen = num_len(num));
 	i = 0;
 	s = 0;
-	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec <= nlen) ?
+	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
 		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
 	{
@@ -102,36 +123,13 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	write_num(res, num, nlen, i);
 }
 
-static intmax_t		length_mod(t_pf *pf)
-{
-	intmax_t	num;
-
-	num = 0;
-	if (pf->len == no)
-		num = (int)(va_arg(pf->args, int));
-	else if (pf->len == hh)
-		num = (signed char)(va_arg(pf->args, int));
-	else if (pf->len == h)
-		num = (short)(va_arg(pf->args, int));
-	else if (pf->len == l)
-		num = (long)(va_arg(pf->args, long int));
-	else if (pf->len == ll)
-		num = (long long)(va_arg(pf->args, long long int));
-	else if (pf->len == j)
-		num = (intmax_t)(va_arg(pf->args, intmax_t));
-	else if (pf->len == z)
-		num = (size_t)(va_arg(pf->args, size_t));
-	return(num);
-}
-
-void			convert_di(t_pf *pf)
+void				convert_di(t_pf *pf)
 {
 	intmax_t	num;
 	char		*res;
 	int			rlen;
 
-	num = length_mod(pf);
-
+	num = int_length_mod(pf);
 	if (num == LONG_MIN)
 	{
 		pf->print = pf_strjoin(pf, ft_strdup("-9223372036854775808"));
