@@ -24,7 +24,7 @@
 ** char flags[5] = {-, +, space, 0, #};
 */
 
-typedef struct					s_pf
+typedef struct							s_pf
 {
 	va_list								args;
 	char								*fmt;
@@ -55,6 +55,9 @@ void					convert_s(t_pf *pf);
 int						s_position_crutch(int width, int len);
 void					convert_di(t_pf *pf);
 void					convert_u(t_pf *pf);
+void					convert_o(t_pf *pf);
+
+char					*pf_itoa_base(intmax_t num, int base, t_pf *pf);
 
 /*
 ** libft functions

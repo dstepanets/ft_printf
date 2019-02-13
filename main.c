@@ -58,10 +58,10 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
 */
-	
 	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%U|", 4294967296));
+
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
