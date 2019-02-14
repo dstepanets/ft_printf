@@ -57,10 +57,14 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
-*/
+
 	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%U|", 4294967296));
+*/
+	printf("==============OCTAL==============\n");
+	printf("\n>>ret: %d\n--------\n", printf("o:|%#.o %#.0o|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#.o %#.0o|", 0, 0));
 
 
 //	printf("------------TO FIX???-------------\n");

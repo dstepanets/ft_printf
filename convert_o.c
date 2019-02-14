@@ -12,9 +12,91 @@
 
 #include "ft_printf.h"
 
+static uintmax_t	oct_length_mod(t_pf *pf)
+{
+	uintmax_t	num;
+
+	num = 0;
+	*pf->fmt == 'O' ? pf->len = l : 0;
+	if (pf->len == no)
+		num = (unsigned int)(va_arg(pf->args, unsigned int));
+	else if (pf->len == hh)
+		num = (unsigned char)(va_arg(pf->args, unsigned int));
+	else if (pf->len == h)
+		num = (unsigned short)(va_arg(pf->args, unsigned int));
+	else if (pf->len == l)
+		num = (unsigned long)(va_arg(pf->args, unsigned long int));
+	else if (pf->len == ll)
+		num = (unsigned long long)(va_arg(pf->args, unsigned long long int));
+	else if (pf->len == j)
+		num = (uintmax_t)(va_arg(pf->args, uintmax_t));
+	else if (pf->len == z)
+		num = (size_t)(va_arg(pf->args, size_t));
+	return(num);
+}
+
+static int			res_len(t_pf *pf, char *str)
+{
+	int			rlen;
+
+	if (str[0] == '0' && !str[1] && pf->prec == 0)
+		(str[0] = '\0');
+	rlen = ft_strlen(str);
+	if (pf->flags[4] == '#' && rlen >= pf->width && rlen >= pf->prec)
+		rlen++;
+	else if (pf->width > rlen && pf->width > pf->prec)
+		rlen = pf->width;
+	else if (pf->prec > rlen && pf->prec >= pf->width)
+		rlen = pf->prec;
+	return (rlen);
+}
+
+static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
+{
+	int			i;
+	int			nlen;
+
+	i = 0;
+	nlen = ft_strlen(str);
+	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
+		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	if (pf->flags[4] == '#' && nlen >= pf->width && nlen >= pf->prec)
+		res[i++] = '0';
+	else if (pf->prec <= nlen && nlen)
+	{
+		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
+		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && !pf->flags[0]) ?
+			res[i - 1] = '0' : 0;
+		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && pf->flags[0]) ?
+			res[i++] = '0' : 0;
+	}
+	else if (pf->prec > nlen)
+	{
+		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
+		while (pf->prec-- > nlen)
+			res[i++] = '0';
+	}
+	while (*str)
+		res[i++] = *(str++);
+}
+
 void				convert_o(t_pf *pf)
 {
+	uintmax_t	num;
+	char		*str;
+	char		*res;
+	int			rlen;
 
+	num = oct_length_mod(pf);
+	str = pf_itoa_base(num , 8, pf);
+	rlen = res_len(pf, str);
+	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))
+		return ;
+	res[rlen] = '\0';
+	apply_specs(pf, str, res, rlen);
+	pf->print = pf_strjoin(pf, res);
+	free(str);
+	free(res);
 }
 
 

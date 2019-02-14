@@ -17,6 +17,7 @@ static intmax_t		int_length_mod(t_pf *pf)
 	intmax_t	num;
 
 	num = 0;
+	*pf->fmt == 'D' ? pf->len = l : 0;
 	if (pf->len == no)
 		num = (int)(va_arg(pf->args, int));
 	else if (pf->len == hh)
