@@ -23,7 +23,8 @@ SRCS =	ft_printf.c \
 		convert_di.c \
 		convert_u.c \
 		convert_o.c \
-		pf_itoa_base.c
+		pf_itoa_base.c \
+		convert_x.c
 LIB_DIR = ./pf_libft/
 LIB_SRC = *.c
 #	LIB_SRC =	ft_bzero.c \

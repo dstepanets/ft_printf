@@ -16,7 +16,6 @@ int			parse_format(t_pf *pf)
 {
 	int		i;
 	char	*txt;
-//	char	*leakfix;
 
 	while (*pf->fmt != '\0')
 	{
@@ -24,27 +23,18 @@ int			parse_format(t_pf *pf)
 		while (pf->fmt[i] && pf->fmt[i] != '%')
 			i++;
 		txt = ft_strsub(pf->fmt, 0, i);
-//		leakfix = pf->print;
 		pf->print = pf_strjoin(pf, txt);
-//		free(leakfix);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
 		if (*pf->fmt == '%' && *(pf->fmt + 1))
 		{
 			reset_specs(pf);
 			pf->fmt++;
-//			leakfix = pf->print;
 			parse_flags(pf);
-//			if (*pf->print)
-//			if (pf->convers)
-//				free(leakfix);
 		}
 		if (*pf->fmt != '\0')
 			pf->fmt++;
-//		pf->fmt++;
 	}
-//	pf->ret += ft_strlen(pf->print);
-//	printf("\n++++++++++++++++\npf->ret: %d\n", pf->ret);
 	return(pf->ret);
 }
 

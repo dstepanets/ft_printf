@@ -56,8 +56,10 @@ int						s_position_crutch(int width, int len);
 void					convert_di(t_pf *pf);
 void					convert_u(t_pf *pf);
 void					convert_o(t_pf *pf);
+void					convert_x(t_pf *pf);
 
-char					*pf_itoa_base(intmax_t num, int base, t_pf *pf);
+char					*pf_itoa_base(uintmax_t num, int base, t_pf *pf);
+
 
 /*
 ** libft functions
@@ -75,6 +77,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*ft_strdup(const char *s1);
+
 
 /*
 ** TEMP

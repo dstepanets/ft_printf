@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static void		lowercase(intmax_t num, int base, int len, char *str)
+static void		lowercase(uintmax_t num, int base, int len, char *str)
 {
-	intmax_t 	n;
+	uintmax_t 	n;
 
 	n = num;
-	while (num != 0)
+	while (num > 0)
 	{
 		n = num % base;
 		str[len--] = (n > 9) ? (n - 10) + 'a' : n + '0';
@@ -25,12 +25,12 @@ static void		lowercase(intmax_t num, int base, int len, char *str)
 	}
 }
 
-static void		uppercase(intmax_t num, int base, int len, char *str)
+static void		uppercase(uintmax_t num, int base, int len, char *str)
 {
-	intmax_t 	n;
+	uintmax_t 	n;
 
 	n = num;
-	while (num != 0)
+	while (num > 0)
 	{
 		n = num % base;
 		str[len--] = (n > 9) ? (n - 10) + 'A' : n + '0';
@@ -38,20 +38,19 @@ static void		uppercase(intmax_t num, int base, int len, char *str)
 	}
 }
 
-char			*pf_itoa_base(intmax_t num, int base, t_pf *pf)
+char			*pf_itoa_base(uintmax_t num, int base, t_pf *pf)
 {
 	char		*str;
 	int			len;
-	intmax_t 	n;
+	uintmax_t 	n;
 
 	len = 0;
 	if (base < 2 || base > 16)
 		return (NULL);
-	num = (num < 0) ? -num : num;
 	n = num;
 	while (n /= base)
 		len++;
-	if (!(str = (char *)malloc(len + 2)))
+	if (!(str = (char *)malloc(sizeof(char) * (len + 2))))
 		return (NULL);
 	str[len + 1] = '\0';
 	if (num == 0) 

@@ -29,14 +29,13 @@ void		parse_convers(t_pf *pf)
 		convert_u(pf);
 	else if (*pf->fmt == 'o' || *pf->fmt == 'O')
 		convert_o(pf);
+	else if (*pf->fmt == 'x' || *pf->fmt == 'X')
+		convert_x(pf);
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
 		pf->print = pf_strjoin(pf, c);
 	}
-
-//	if (*pf->fmt != '\0' && *(pf->fmt + 1) != '\0')
-//		pf->fmt++;
 }
 
 void		parse_length(t_pf *pf)
