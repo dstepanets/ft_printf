@@ -39,8 +39,11 @@ static int			res_len(t_pf *pf, char *str)
 {
 	int			rlen;
 
-	if (str[0] == '0' && !str[1] && pf->prec == 0)
-		(str[0] = '\0');
+	if (str[0] == '0' && !str[1])
+	{
+		(pf->flags[4] || !pf->prec) ? (str[0] = '\0') : 0;
+		str[1] = '\0';
+	}
 	rlen = ft_strlen(str);
 	if (pf->flags[4] == '#' && rlen >= pf->width && rlen >= pf->prec)
 		rlen++;

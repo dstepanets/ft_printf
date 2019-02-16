@@ -16,6 +16,8 @@ int		main(void)
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("2|%2c\n", 0);
 	printf("  ret: %d\n--------\n", ret);
+	printf("\n>>ret: %d\n--------\n", printf("c:|%03c|", 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("c:|%03c|", 0));
 
 	printf("==============%%%%%%%%%%==============\n");
 	ret = printf("pf_%%\n1:%7%:\n2:%0-7%:\n3:%07.5%:\n4:%%%\n");
@@ -58,22 +60,28 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
-*/
+
 	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%.u, %.0u|", 0, 0));
 
-/*
+
 	printf("==============OCTAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("o:|%#.o %#.0o|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#.o %#.0o|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", printf("o:|%#o|", 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#o|", 0));
+	printf("\n>>ret: %d\n--------\n", printf("o:|%o|", 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%o|", 0));
+	printf("\n>>ret: %d\n--------\n", printf("o:|%5.o %5.0o|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%5.o %5.0o|", 0, 0));
 
 	printf("==============HEXADECIMAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("x:|%028.18x|", 4242));
 	printf("\n>>ret: %d\n--------\n", ft_printf("x:|%028.18x|", 4242));
-
+*/
 	printf("==============POINTERS==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("p:|%028.18p|", fptr));
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%028.18p|", fptr));
@@ -83,9 +91,9 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%p|", fptr));
 	printf("\n>>ret: %d\n--------\n", printf("p:|%20.20p|", fptr));
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%20.20p|", fptr));
-	printf("\n>>ret: %d\n--------\n", printf("p:|%.p, %.0p|", 0, 0));
-	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.p, %.0p|", 0, 0));
-*/
+	printf("\n>>ret: %d\n--------\n", printf("p:|%.0p, %.p|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.0p, %.p|", 0, 0));
+
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
@@ -119,6 +127,8 @@ nonprintable characters, %k to print a date in any ordinary ISO format etc.
 ---------------------------------------------
 		BONUS IDEAS:
 • char l (ell) flag: wint_t -> wchar_t.
-• 
-
+• binary conversion
+• colors
+•
+•
 */

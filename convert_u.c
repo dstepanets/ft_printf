@@ -48,8 +48,8 @@ static int			num_len(uintmax_t num)
 static int			res_len(t_pf *pf, uintmax_t num)
 {
 	int			rlen;
-
-	rlen = num_len(num);
+	
+	(num == 0 && pf->prec == 0) ? rlen = 0 : (rlen = num_len(num));
 	if (pf->width > rlen && pf->width > pf->prec)
 		rlen = pf->width;
 	else if (pf->prec > rlen && pf->prec >= pf->width)
