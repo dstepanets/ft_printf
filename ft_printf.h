@@ -57,6 +57,7 @@ void					convert_di(t_pf *pf);
 void					convert_u(t_pf *pf);
 void					convert_o(t_pf *pf);
 void					convert_x(t_pf *pf);
+void					convert_p(t_pf *pf);
 
 char					*pf_itoa_base(uintmax_t num, int base, t_pf *pf);
 

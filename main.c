@@ -2,9 +2,10 @@
 
 int		main(void)
 {
-	int ret = 0;
-	float num = -0.0;
-
+	int		ret = 0;
+	float 	fnum = -0.0;
+	float 	fnum2 = -12412412.42424242;
+	float 	*fptr = &fnum2;
 /*
 	printf("==============CHARS==============\n");
 	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
@@ -57,19 +58,34 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
-
+*/
 	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%U|", 4294967296));
+	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%.u, %.0u|", 0, 0));
 
+/*
 	printf("==============OCTAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("o:|%#.o %#.0o|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#.o %#.0o|", 0, 0));
-*/
-	printf("==============HEXADECIMAL==============\n");
-	printf("\n>>ret: %d\n--------\n", printf("x:|%jx|", -4294967297));
-	printf("\n>>ret: %d\n--------\n", ft_printf("x:|%jx|", -4294967297));
 
+	printf("==============HEXADECIMAL==============\n");
+	printf("\n>>ret: %d\n--------\n", printf("x:|%028.18x|", 4242));
+	printf("\n>>ret: %d\n--------\n", ft_printf("x:|%028.18x|", 4242));
+
+	printf("==============POINTERS==============\n");
+	printf("\n>>ret: %d\n--------\n", printf("p:|%028.18p|", fptr));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%028.18p|", fptr));
+	printf("\n>>ret: %d\n--------\n", printf("p:|%.18p|", fptr));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.18p|", fptr));
+	printf("\n>>ret: %d\n--------\n", printf("p:|%p|", fptr));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%p|", fptr));
+	printf("\n>>ret: %d\n--------\n", printf("p:|%20.20p|", fptr));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%20.20p|", fptr));
+	printf("\n>>ret: %d\n--------\n", printf("p:|%.p, %.0p|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.p, %.0p|", 0, 0));
+*/
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
