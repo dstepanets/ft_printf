@@ -67,10 +67,9 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("u:|%.u, %.0u|", 0, 0));
 
-
 	printf("==============OCTAL==============\n");
-	printf("\n>>ret: %d\n--------\n", printf("o:|%#.o %#.0o|", 0, 0));
-	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#.o %#.0o|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", printf("o:|%.c %.0c|", 42, 42));
+	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%.c %.0c|", 42, 42));
 	printf("\n>>ret: %d\n--------\n", printf("o:|%#o|", 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("o:|%#o|", 0));
 	printf("\n>>ret: %d\n--------\n", printf("o:|%o|", 0));
@@ -81,7 +80,7 @@ int		main(void)
 	printf("==============HEXADECIMAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("x:|%028.18x|", 4242));
 	printf("\n>>ret: %d\n--------\n", ft_printf("x:|%028.18x|", 4242));
-*/
+
 	printf("==============POINTERS==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("p:|%028.18p|", fptr));
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%028.18p|", fptr));
@@ -93,6 +92,10 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%20.20p|", fptr));
 	printf("\n>>ret: %d\n--------\n", printf("p:|%.0p, %.p|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.0p, %.p|", 0, 0));
+*/
+	printf("==============FLOAT==============\n");
+	printf("\n>>ret: %d\n--------\n", printf("f:|%.2f|", 999.9992));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%.1f|", 999.9942));
 
 
 //	printf("------------TO FIX???-------------\n");

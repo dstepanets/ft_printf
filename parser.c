@@ -33,6 +33,8 @@ void		parse_convers(t_pf *pf)
 		convert_x(pf);
 	else if (*pf->fmt == 'p')
 		convert_p(pf);
+	else if (*pf->fmt == 'f' || *pf->fmt == 'F')
+		convert_f(pf);
 	else if (*pf->fmt)
 	{
 		c[0] = *pf->fmt;
