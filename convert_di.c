@@ -111,7 +111,7 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
 	{
 		apply_sign(pf, res, num, rlen);
-		s++;
+		s = 1;
 	}
 	if (pf->prec <= nlen)
 		(pf->flags[0] == '-') ? (i += s) : (i = (rlen - nlen));

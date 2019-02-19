@@ -58,7 +58,7 @@ $(NAME): $(OBJS)
 	@echo "\033[32mft_printf.a compiled.\033[0m"
 	ranlib $(NAME)
 	@echo "\033[32mft_printf.a indexed.\033[0m"
-	$(CC) -g -fsanitize=address main.c $(NAME)			#sanitizer	-fsanitize=address
+	$(CC) -g -fsanitize=address main.c $(NAME)			#sanitizer:		-fsanitize=address
 	@echo "\033[32ma.out compiled\033[0m"
 	rm -f $(OBJS)
 	@echo "\033[31mft_printf object files removed.\033[0m"

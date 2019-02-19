@@ -12,74 +12,160 @@
 
 #include "ft_printf.h"
 
-static char			*get_1part(intmax_t num)
+static char			*get_right(t_pf *pf, t_fl *fl, long double num)
+{
+	intmax_t	left;
+	int			pr;
+
+	num = num < 0 ? -num : num;
+	left = num;
+	pr = pf->prec;
+//	printf("left: %ld\n", left);
+	num = num - (long double)left;
+//	printf("num: %Lf\n", num);
+	if (!(fl->right = (char *)malloc(sizeof(char) * pr + 1)))
+		return (NULL);
+	fl->right[pr] = '\0';
+	if (num == 0)
+	{
+		ft_memset(fl->right, '0', pr);
+		return (fl->right);
+	}
+	while (pr--)
+		num *= 10;
+	left = num;
+	pr = pf->prec;
+	while (left)
+	{
+		fl->right[--pr] = (left % 10) + '0';
+		left /= 10;
+	}
+//	printf("left: %ld\n", left);
+//	printf("num: %Lf\n", num);
+//	printf("right: %s\n", right);
+	return (fl->right);
+}
+
+static char			*get_left(t_fl *fl, intmax_t num)
 {
 	intmax_t	n;
 	int			nlen;
-	char		*left;
 	
+	num = num < 0 ? -num : num;
 	n = num;
-	n < 0 ? n = -n : 0;
 	nlen = 1;
 	while (n /= 10)
 		nlen++;
-	printf("nlen: %d\n", nlen);	
-	if (!(left = (char *)malloc(sizeof(char) * nlen + 1)))
+//	printf("nlen: %d\n", nlen);	
+	if (!(fl->left = (char *)malloc(sizeof(char) * nlen + 1)))
 		return (NULL);
-	left[nlen] = '\0';
+	fl->left[nlen] = '\0';
+	if (num == 0)
+	{
+		fl->left[0] = '0';
+		return (fl->left);
+	}
 	while (num)
 	{
-		left[--nlen] = (num % 10) + '0';
+		fl->left[--nlen] = (num % 10) + '0';
 		num /= 10;
 	}
-	printf("left: %s\n", left);	
-	return (left);
+//	printf("left: %s\n", left);	
+	return (fl->left);
 }
 
-static int			res_len(t_pf *pf, char *left, long double num)
+static void			res_len(t_pf *pf, t_fl *fl)
 {
-	int			rlen;
 
-	rlen = ft_strlen(left);
-	pf->prec == -1 ? pf->prec = 6 : 0;
-	(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
+	fl->nlen = ft_strlen(fl->left) + pf->prec;
+	(pf->prec != 0 || pf->flags[4] == '#') ? fl->nlen++ : 0;							// dot
+	fl->rlen = fl->nlen;
+	(fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? fl->rlen++ : 0;		// sign
+	(pf->width > fl->rlen) ? fl->rlen = pf->width : 0; 									// width
+//	printf("nlen: %d\n", fl->nlen);									
+//	printf("rlen: %d\n", fl->rlen);
 
+}
 
-	if (pf->width || pf->prec > -1)
-	{
-		if (pf->width > rlen && pf->width > pf->prec)
-			rlen = pf->width;
-		else if (pf->prec > rlen && pf->prec >= pf->width)
-		{
-			rlen = pf->prec;
-			(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
-		}
-		else
-			(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
-	}
+static long double	round_num(int i, long double num)
+{
+	long double	roun;
+	int			pr;
+	
+	num = num < 0 ? -num : num;
+	pr = 1;
+	while (i--)
+		pr *= 10;
+	roun = (int) (num * pr + 0.5);
+	roun /= pr;
+//	printf("roun: %Lf\n", roun);
+	return (roun);
+}
+
+static void			put_sign(t_pf *pf, t_fl *fl)
+{
+	int		i;
+	
+	if (pf->flags[0] == '-' || pf->flags[3] == '0')
+		i = 0;
 	else
-		(num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? rlen++ : 0;
-	printf("rlen: %d\n", rlen);
-	return (rlen);
+		i = fl->rlen - fl->nlen - 1;
+	if (fl->num < 0)
+		fl->res[i] = '-';
+	else if (pf->flags[1] == '+')
+		fl->res[i] = '+';
+	else
+		fl->res[i] = ' ';
+}
+
+static void			apply_specs(t_pf *pf, t_fl *fl)
+{
+	int		i;
+	int		s;
+
+	(pf->flags[3] == '0' && !pf->flags[0]) ?
+		ft_memset(fl->res, '0', fl->rlen) : ft_memset(fl->res, ' ', fl->rlen);
+	i = 0;
+	s = 0;
+	if (fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
+	{
+		put_sign(pf, fl);
+		s = 1;
+	}
+	(pf->flags[0] == '-') ? (i += s) : (i = (fl->rlen - fl->nlen));
+//	printf("i: %d\n", i);
+	while (*fl->left)
+		fl->res[i++] = *fl->left++;
+//	printf("i: %d\n", i);
+	(pf->prec != 0 || pf->flags[4] == '#') ? fl->res[i++] = '.' : 0;
+	while (*fl->right)
+		fl->res[i++] = *fl->right++;
 }
 
 void				convert_f(t_pf *pf)
 {
-	long double	num;
-//	char		*res;
-	char		*left;
-	int			rlen;
+	t_fl		*fl;
+	char		*leak1;
+	char		*leak2;
 
-	(pf->len == L) ? (num = (long double)(va_arg(pf->args, long double))) : 
-		(num = (double)(va_arg(pf->args, double)));
-	left = get_1part(num);
-	rlen = res_len(pf, left, num);
-//	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))
-//		return ;
-//	res[rlen] = '\0';
-//	apply_specs(pf, str, res, rlen);
-//	pf->print = pf_strjoin(pf, res);
-//	free(res);
+	fl = (t_fl *)malloc(sizeof(t_fl));
+	(pf->len == L) ? (fl->num = (long double)(va_arg(pf->args, long double))) : 
+		(fl->num = (double)(va_arg(pf->args, double)));
+	pf->prec == -1 ? pf->prec = 6 : 0;
+	fl->roun = round_num(pf->prec, fl->num);
+	leak1 = get_left(fl, fl->roun);
+	leak2 = get_right(pf, fl, fl->roun);
+	res_len(pf, fl);
+	if (!(fl->res = (char *)malloc(sizeof(char) * fl->rlen + 1)))
+		return ;
+	fl->res[fl->rlen] = '\0';
+	apply_specs(pf, fl);
+	pf->print = pf_strjoin(pf, fl->res);
+	ft_memdel((void **)fl->left);
+	free(leak1);
+	free(leak2);
+	free(fl->res);
+	free(fl);
 }
 
 

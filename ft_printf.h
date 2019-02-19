@@ -37,6 +37,17 @@ typedef struct							s_pf
 	char								convers;	//maybe no need in it?
 }										t_pf;
 
+typedef struct							s_fl
+{
+	char			*res;
+	long double		num;
+	long double		roun;
+	char			*left;
+	char			*right;
+	int				nlen;
+	int				rlen;
+}										t_fl;
+
 int						ft_printf(const char *format, ...);
 t_pf					*init_specs(char *fmt);
 void					reset_specs(t_pf *pf);

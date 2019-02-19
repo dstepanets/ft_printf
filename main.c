@@ -94,9 +94,12 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.0p, %.p|", 0, 0));
 */
 	printf("==============FLOAT==============\n");
-	printf("\n>>ret: %d\n--------\n", printf("f:|%.2f|", 999.9992));
-	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%.1f|", 999.9942));
-
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -127.32435));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -99.32335));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -99.32335));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -0.0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -0.0));
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");
