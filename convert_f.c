@@ -17,16 +17,16 @@ static char			*get_right(t_pf *pf, t_fl *fl, long double num)
 	intmax_t	left;
 	int			pr;
 
-	num = num < 0 ? -num : num;
+	num = fl->num < 0 ? -fl->num : fl->num;
 	left = num;
 	pr = pf->prec;
 //	printf("left: %ld\n", left);
 	num = num - (long double)left;
-//	printf("num: %Lf\n", num);
+	printf("num: %Lf\n", num);
 	if (!(fl->right = (char *)malloc(sizeof(char) * pr + 1)))
 		return (NULL);
 	fl->right[pr] = '\0';
-	if (num == 0)
+	if (num == 0 || fl->num == 0.0 || fl->num == -0.0)
 	{
 		ft_memset(fl->right, '0', pr);
 		return (fl->right);
@@ -50,7 +50,7 @@ static char			*get_left(t_fl *fl, intmax_t num)
 {
 	intmax_t	n;
 	int			nlen;
-	
+
 	num = num < 0 ? -num : num;
 	n = num;
 	nlen = 1;
@@ -60,23 +60,24 @@ static char			*get_left(t_fl *fl, intmax_t num)
 	if (!(fl->left = (char *)malloc(sizeof(char) * nlen + 1)))
 		return (NULL);
 	fl->left[nlen] = '\0';
-	if (num == 0)
-	{
-		fl->left[0] = '0';
-		return (fl->left);
-	}
+	(fl->num == 0 || fl->num == -0.0) ? fl->left[0] = '0' : 0;
 	while (num)
 	{
 		fl->left[--nlen] = (num % 10) + '0';
 		num /= 10;
 	}
-//	printf("left: %s\n", left);	
+	printf("fl->num: %Lf\n", fl->num);
+	if (((intmax_t)fl->num == LONG_MIN))
+	{
+		free(fl->left);
+		printf("left: %s\n", fl->left);	
+		fl->left = ft_strdup("-9223372036854775808");
+	}
 	return (fl->left);
 }
 
 static void			res_len(t_pf *pf, t_fl *fl)
 {
-
 	fl->nlen = ft_strlen(fl->left) + pf->prec;
 	(pf->prec != 0 || pf->flags[4] == '#') ? fl->nlen++ : 0;							// dot
 	fl->rlen = fl->nlen;
@@ -96,7 +97,7 @@ static long double	round_num(int i, long double num)
 	pr = 1;
 	while (i--)
 		pr *= 10;
-	roun = (int) (num * pr + 0.5);
+	roun = (num * pr + 0.5);
 	roun /= pr;
 //	printf("roun: %Lf\n", roun);
 	return (roun);
@@ -110,7 +111,7 @@ static void			put_sign(t_pf *pf, t_fl *fl)
 		i = 0;
 	else
 		i = fl->rlen - fl->nlen - 1;
-	if (fl->num < 0)
+	if (fl->num < 0 || fl->num == -0.0)
 		fl->res[i] = '-';
 	else if (pf->flags[1] == '+')
 		fl->res[i] = '+';
@@ -122,12 +123,12 @@ static void			apply_specs(t_pf *pf, t_fl *fl)
 {
 	int		i;
 	int		s;
-
+	
 	(pf->flags[3] == '0' && !pf->flags[0]) ?
 		ft_memset(fl->res, '0', fl->rlen) : ft_memset(fl->res, ' ', fl->rlen);
 	i = 0;
 	s = 0;
-	if (fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
+	if (fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || fl->num == -0.0)
 	{
 		put_sign(pf, fl);
 		s = 1;
@@ -160,12 +161,13 @@ void				convert_f(t_pf *pf)
 		return ;
 	fl->res[fl->rlen] = '\0';
 	apply_specs(pf, fl);
+//	((intmax_t)fl->num == LONG_MIN) ? fl->res = ft_strdup("-9223372036854775808") : 0;
 	pf->print = pf_strjoin(pf, fl->res);
-	ft_memdel((void **)fl->left);
 	free(leak1);
 	free(leak2);
 	free(fl->res);
 	free(fl);
+	fl = NULL;
 }
 
 
