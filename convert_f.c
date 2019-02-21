@@ -18,9 +18,8 @@ static char			*get_right(t_pf *pf, t_fl *fl, long double num)
 	int			pr;
 
 	num = fl->num < 0 ? -fl->num : fl->num;
-	left = num;
+	left = (intmax_t)num;
 	pr = pf->prec;
-//	printf("left: %ld\n", left);
 	num = num - (long double)left;
 	printf("num: %Lf\n", num);
 	if (!(fl->right = (char *)malloc(sizeof(char) * pr + 1)))
@@ -33,9 +32,11 @@ static char			*get_right(t_pf *pf, t_fl *fl, long double num)
 	}
 	while (pr--)
 		num *= 10;
+	printf("num: %Lf\n", num);
 	left = num;
+	printf("left: %ld\n", left);
 	pr = pf->prec;
-	while (left)
+	while (pr)
 	{
 		fl->right[--pr] = (left % 10) + '0';
 		left /= 10;
@@ -66,11 +67,11 @@ static char			*get_left(t_fl *fl, intmax_t num)
 		fl->left[--nlen] = (num % 10) + '0';
 		num /= 10;
 	}
-	printf("fl->num: %Lf\n", fl->num);
+//	printf("fl->num: %Lf\n", fl->num);
 	if (((intmax_t)fl->num == LONG_MIN))
 	{
 		free(fl->left);
-		printf("left: %s\n", fl->left);	
+//		printf("left: %s\n", fl->left);	
 		fl->left = ft_strdup("-9223372036854775808");
 	}
 	return (fl->left);
@@ -106,12 +107,15 @@ static long double	round_num(int i, long double num)
 static void			put_sign(t_pf *pf, t_fl *fl)
 {
 	int		i;
-	
+	unsigned long long	*n;
+	double d = fl->num;
+
+	n = (unsigned long long *)&d;
 	if (pf->flags[0] == '-' || pf->flags[3] == '0')
 		i = 0;
 	else
 		i = fl->rlen - fl->nlen - 1;
-	if (fl->num < 0 || fl->num == -0.0)
+	if (fl->num < 0.0 || (*n >> 63 & 1))
 		fl->res[i] = '-';
 	else if (pf->flags[1] == '+')
 		fl->res[i] = '+';
@@ -128,7 +132,7 @@ static void			apply_specs(t_pf *pf, t_fl *fl)
 		ft_memset(fl->res, '0', fl->rlen) : ft_memset(fl->res, ' ', fl->rlen);
 	i = 0;
 	s = 0;
-	if (fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || fl->num == -0.0)
+	if (fl->num < 0.0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || fl->num == -0.0)
 	{
 		put_sign(pf, fl);
 		s = 1;
