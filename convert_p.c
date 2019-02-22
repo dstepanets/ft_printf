@@ -42,11 +42,18 @@ static void			apply_zerox(t_pf *pf, char *res, int *i , char *str)
 	nlen = ft_strlen(str);
 	if (nlen == 0)
 		return ;
-	if ((pf->prec <= nlen && !pf->flags[0] && !(str[0] == '0' && !str[1])))
+
+	if (!pf->flags[0] && pf->prec > nlen)
+		*i = (rlen - pf->prec - 2);
+	else if (!pf->flags[0] && !pf->flags[3] && rlen > (nlen + 2))
+		*i = (rlen - nlen - 2);
+/*	if ((pf->prec <= nlen && !pf->flags[0] && !(str[0] == '0' && !str[1])))
 		*i = (rlen - nlen - 2);
 	else if (pf->prec > nlen && pf->prec < pf->width && !pf->flags[0])
 		*i = (rlen - pf->prec - 2);
-	else 
+	else if (pf->width > nlen && !pf->flags[0] && !pf->flags[3])
+		*i = (rlen - nlen - 2);
+*/	else 
 		*i = 0;
 	res[(*i)++] = '0';
 	(*pf->fmt == 'X') ? (res[(*i)++] = 'X') : (res[(*i)++] = 'x');

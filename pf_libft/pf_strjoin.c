@@ -20,6 +20,8 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 
 	if (!pf->print || !s2)
 		return (NULL);
+//	printf("pf->print: %s}\n", pf->print);
+//	printf("s2: %s}\n", s2);
 	if (!(res = (char *)malloc(ft_strlen(pf->print) + ft_strlen(s2) + 1)))
 		return (NULL);
 	i = 0;
@@ -32,6 +34,5 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	res[i] = '\0';
 	if(pf->print)
 		free((void *)pf->print);
-//	ft_memdel((void*)s1);
 	return (res);
 }

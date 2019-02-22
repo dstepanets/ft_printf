@@ -57,25 +57,32 @@ static int			res_len(t_pf *pf, char *str)
 static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 {
 	int			i;
+	int			z;
 	int			nlen;
 
 	i = 0;
+	z = 0;
 	nlen = ft_strlen(str);
 	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
 		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
-	if (pf->flags[4] == '#' && nlen >= pf->width && nlen >= pf->prec)
-		res[i++] = '0';
-	else if (pf->prec <= nlen && nlen)
+	if (pf->flags[4] == '#' && !pf->flags[3])
 	{
-		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
-		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && !pf->flags[0]) ?
-			res[i - 1] = '0' : 0;
-		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && pf->flags[0]) ?
-			res[i++] = '0' : 0;
+			pf->flags[0] ? (res[0] = '0') : (res[rlen - nlen - 1] = '0');
+			z = 1;
+	}
+//	if (pf->flags[4] == '#' && nlen >= pf->width && nlen >= pf->prec)
+//		res[i++] = '0';
+	if (pf->prec <= nlen && nlen)
+	{
+		(pf->flags[0] == '-') ? (i += z) : (i = (rlen - nlen));
+//		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && !pf->flags[0]) ?
+//			res[i - 1] = '0' : 0;
+//		(pf->flags[4] && pf->width > nlen && !pf->flags[3] && pf->flags[0]) ?
+//			res[i++] = '0' : 0;
 	}
 	else if (pf->prec > nlen)
 	{
-		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
+		(pf->flags[0] == '-') ? (i += z) : (i = (rlen - pf->prec));
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
