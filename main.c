@@ -94,22 +94,24 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("p:|%.0p, %.p|", 0, 0));
 */
 	printf("==============FLOAT==============\n");
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -127.32435));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -99.32335));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -99.32335));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%11f|", -0.0));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11f|", -0.0));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%+-f|", 0.0));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%+-f|", 0.0));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%11f|", 9.999));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11f|", 9.999));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%f|", -25.0));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%f|", -25.0));
-//	printf("\n>>ret: %d\n--------\n", printf("f:|%Lf|", -9223372036854775808.5));
-//	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%Lf|", -9223372036854775808.5));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -127.32435));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -99.32335));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", -99.32335));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11f|", -0.0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11f|", -0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%+-f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%+-f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", 9.999));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%11.2f|", 9.999));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%f|", -25.0));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%f|", -25.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%Lf|", -9223372036854775808.7));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%Lf|", -9223372036854775808.7));
 	printf("\n>>ret: %d\n--------\n", printf("f:|%f|", 1.42));
 	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%f|", 1.42));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%.2f|", 1.388));
+	printf("\n>>ret: %d\n--------\n", ft_printf("f:|%.2f|", 1.388));
 
 //	printf("------------TO FIX???-------------\n");
 //	printf("|%%%777\n");

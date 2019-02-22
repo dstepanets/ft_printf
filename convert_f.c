@@ -12,16 +12,13 @@
 
 #include "ft_printf.h"
 
-static char			*get_right(t_pf *pf, t_fl *fl, long double num)
+static char			*get_fraction(t_pf *pf, t_fl *fl, long double num)
 {
-	intmax_t	left;
 	int			pr;
 
-	num = fl->num < 0 ? -fl->num : fl->num;
-	left = (intmax_t)num;
+	num = num - (intmax_t)num;
+//	printf("num: %Lf\n", num);
 	pr = pf->prec;
-	num = num - (long double)left;
-	printf("num: %Lf\n", num);
 	if (!(fl->right = (char *)malloc(sizeof(char) * pr + 1)))
 		return (NULL);
 	fl->right[pr] = '\0';
@@ -30,24 +27,20 @@ static char			*get_right(t_pf *pf, t_fl *fl, long double num)
 		ft_memset(fl->right, '0', pr);
 		return (fl->right);
 	}
-	while (pr--)
-		num *= 10;
-	printf("num: %Lf\n", num);
-	left = num;
-	printf("left: %ld\n", left);
-	pr = pf->prec;
-	while (pr)
+//	printf("num: %Lf\n", num);
+	pr = 0;
+	while (pr < pf->prec)
 	{
-		fl->right[--pr] = (left % 10) + '0';
-		left /= 10;
+		num *= 10;
+		fl->right[pr++] = (int)num + '0';
+		num -= (int)num;
 	}
-//	printf("left: %ld\n", left);
 //	printf("num: %Lf\n", num);
 //	printf("right: %s\n", right);
 	return (fl->right);
 }
 
-static char			*get_left(t_fl *fl, intmax_t num)
+static char			*get_int(t_fl *fl, intmax_t num)
 {
 	intmax_t	n;
 	int			nlen;
@@ -158,8 +151,8 @@ void				convert_f(t_pf *pf)
 		(fl->num = (double)(va_arg(pf->args, double)));
 	pf->prec == -1 ? pf->prec = 6 : 0;
 	fl->roun = round_num(pf->prec, fl->num);
-	leak1 = get_left(fl, fl->roun);
-	leak2 = get_right(pf, fl, fl->roun);
+	leak1 = get_int(fl, fl->roun);
+	leak2 = get_fraction(pf, fl, fl->roun);
 	res_len(pf, fl);
 	if (!(fl->res = (char *)malloc(sizeof(char) * fl->rlen + 1)))
 		return ;
