@@ -62,13 +62,13 @@ static void			apply_specs(t_pf *pf, uintmax_t num, char *res, int rlen)
 	int			nlen;
 	int			i;
 
-	nlen = num_len(num);
+	(num == 0 && pf->prec == 0) ? (nlen = 0): (nlen = num_len(num));
 	i = 0;
 	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
 		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
-	if (pf->prec <= nlen)
+	if (pf->prec <= nlen && nlen)
 		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
-	else if (pf->prec > nlen)
+	else if (pf->prec > nlen && nlen)
 	{
 		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
 		while (pf->prec-- > nlen)

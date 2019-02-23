@@ -55,7 +55,7 @@ int		main(void)
 	ret = ft_printf("%s %s", NULL, "string");
 	printf("\n>>ret: %d\n--------\n", ret);
 
-*/	printf("==============INTS==============\n");
+	printf("==============INTS==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
@@ -63,13 +63,15 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("d:|%0+5.0d|", 25));
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%0+5.0d|", 25));
 
-/*	printf("==============UNSIGNED==============\n");
+*/	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n========\n", ft_printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("u:|%.u, %.0u|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", printf("u:|%0.0u|", 0));
+	printf("\n>>ret: %d\n========\n", ft_printf("u:|%0.0u|", 0));
 
-	printf("==============OCTAL==============\n");
+/*	printf("==============OCTAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("o:|%-#6o|", 2500));
 	printf("\n>>ret: %d\n========\n", ft_printf("o:|%-#6o|", 2500));
 	printf("\n>>ret: %d\n--------\n", printf("o:|%#6o|", 2500));
