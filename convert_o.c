@@ -41,7 +41,7 @@ static int			res_len(t_pf *pf, char *str)
 
 	if (str[0] == '0' && !str[1])
 	{
-		(pf->flags[4] || !pf->prec) ? (str[0] = '\0') : 0;
+		(pf->flags[4] || pf->prec == 0) ? (str[0] = '\0') : 0;
 		str[1] = '\0';
 	}
 	rlen = ft_strlen(str);
@@ -63,8 +63,8 @@ static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 	i = 0;
 	z = 0;
 	nlen = ft_strlen(str);
-	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
-		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	(pf->flags[0] == '-' || pf->prec != -1) ? pf->flags[3] = '\0' : 0;
+	(pf->flags[3] == '0') ? ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	if (pf->flags[4] == '#' && !pf->flags[3])
 	{
 			pf->flags[0] ? (res[0] = '0') : (res[rlen - nlen - 1] = '0');
@@ -82,7 +82,7 @@ static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 	}
 	else if (pf->prec > nlen)
 	{
-		(pf->flags[0] == '-') ? (i += z) : (i = (rlen - pf->prec));
+		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - pf->prec));
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
