@@ -33,6 +33,9 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 		res[i++] = *s2++;
 	res[i] = '\0';
 	if(pf->print)
+	{
 		free((void *)pf->print);
+		pf->print = NULL;
+	}
 	return (res);
 }

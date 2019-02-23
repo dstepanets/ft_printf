@@ -3,9 +3,7 @@
 int		main(void)
 {
 	int		ret = 0;
-	float 	fnum = -0.0;
-	float 	fnum2 = -12412412.42424242;
-	float 	*fptr = &fnum2;
+
 /*
 	printf("==============CHARS==============\n");
 	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
@@ -62,8 +60,11 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%0+5.0d|", 25));
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%0+5.0d|", 25));
+	printf("\n>>ret: %d\n--------\n", printf("d:|% .0d|", 0));
+	printf("\n>>ret: %d\n========\n", ft_printf("d:|% .0d|", 0));
 
-*/	printf("==============UNSIGNED==============\n");
+
+	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n========\n", ft_printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
@@ -71,7 +72,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("u:|%0.0u|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("u:|%0.0u|", 0));
 
-/*	printf("==============OCTAL==============\n");
+	printf("==============OCTAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("o:|%-#6o|", 2500));
 	printf("\n>>ret: %d\n========\n", ft_printf("o:|%-#6o|", 2500));
 	printf("\n>>ret: %d\n--------\n", printf("o:|%#6o|", 2500));
@@ -122,7 +123,10 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("p:|%05p|", 0));
 
 
-	printf("==============FLOAT==============\n");
+*/	printf("==============FLOAT==============\n");
+	float 	fnum = -100;
+	float 	fnum2 = 0;
+	float 	*fptr = &fnum2;
 	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%11.2f|", -127.32435));
 	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -99.32335));
@@ -141,7 +145,10 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%f|", 1.42));
 	printf("\n>>ret: %d\n--------\n", printf("f:|%.2f|", 1.388));
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%.2f|", 1.388));
-*/
+	printf("\n>>ret: %d\n--------\n", printf("f:|%10.2F|", fnum/fnum2));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%10.2F|", fnum/fnum2));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%10.2f|", 0/fnum2));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%10.2f|", 0/fnum2));
 
 //	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 //	system("leaks a.out");

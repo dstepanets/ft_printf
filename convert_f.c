@@ -60,13 +60,6 @@ static char			*get_int(t_fl *fl, intmax_t num)
 		fl->left[--nlen] = (num % 10) + '0';
 		num /= 10;
 	}
-//	printf("fl->num: %Lf\n", fl->num);
-	if (((intmax_t)fl->num == LONG_MIN))
-	{
-		free(fl->left);
-//		printf("left: %s\n", fl->left);	
-		fl->left = ft_strdup("-9223372036854775808");
-	}
 	return (fl->left);
 }
 
@@ -116,6 +109,24 @@ static void			put_sign(t_pf *pf, t_fl *fl)
 		fl->res[i] = ' ';
 }
 
+static int			infnan(t_pf *pf, t_fl *fl)
+{
+	if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0) || (fl->num != fl->num))
+	{
+		free(fl->left);
+		if ((double)fl->num == LONG_MIN)
+			fl->left = ft_strdup("-9223372036854775808");
+		else if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0))
+			(*pf->fmt == 'F') ? (fl->left = ft_strdup("INF")) : (fl->left = ft_strdup("inf"));
+		else if (fl->num != fl->num)
+			(*pf->fmt == 'F') ? (fl->left = ft_strdup("NAN")) : (fl->left = ft_strdup("nan"));
+		ft_bzero(fl->right, pf->prec);
+		pf->prec = 0;
+		return (1);
+	}
+	return (0);
+}
+
 static void			apply_specs(t_pf *pf, t_fl *fl)
 {
 	int		i;
@@ -153,12 +164,12 @@ void				convert_f(t_pf *pf)
 	fl->roun = round_num(pf->prec, fl->num);
 	leak1 = get_int(fl, fl->roun);
 	leak2 = get_fraction(pf, fl, fl->roun);
+	infnan(pf ,fl) ? leak1 = fl->left : 0;
 	res_len(pf, fl);
 	if (!(fl->res = (char *)malloc(sizeof(char) * fl->rlen + 1)))
 		return ;
 	fl->res[fl->rlen] = '\0';
 	apply_specs(pf, fl);
-//	((intmax_t)fl->num == LONG_MIN) ? fl->res = ft_strdup("-9223372036854775808") : 0;
 	pf->print = pf_strjoin(pf, fl->res);
 	free(leak1);
 	free(leak2);
