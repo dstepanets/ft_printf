@@ -37,15 +37,16 @@ static uintmax_t	hex_length_mod(t_pf *pf)
 static int			res_len(t_pf *pf, char *str)
 {
 	int			rlen;
+	int 		nlen;
 
-	rlen = ft_strlen(str);
-	if (pf->flags[4] == '#' && rlen >= pf->width && rlen >= pf->prec &&
-		!(str[0] == '0' && !str[1]))
-		rlen += 2;
-	else if (pf->width > rlen && pf->width > pf->prec)
+	nlen = ft_strlen(str);
+	rlen = nlen;
+	if (pf->flags[4] == '#' && !(str[0] == '0' && !str[1]))
+		rlen = nlen + 2;
+	if (pf->prec > nlen)
+		rlen += (pf->prec - nlen);
+	if (pf->width > rlen)
 		rlen = pf->width;
-	else if (pf->prec > rlen && pf->prec >= pf->width)
-		rlen = pf->prec;
 	if (str[0] == '0' && !str[1] && pf->prec == 0)
 	{
 		(str[0] = '\0');
@@ -57,38 +58,44 @@ static int			res_len(t_pf *pf, char *str)
 	return (rlen);
 }
 
-static void			apply_zerox(t_pf *pf, char *res, int *i , int nlen)
+static void			apply_zerox(t_pf *pf, char *res, int i , int nlen)
 {
 	int			rlen;
 
 	rlen = ft_strlen(res);
 	if (nlen == 0)
 		return ;
-	if ((nlen >= pf->width && nlen >= pf->prec) || (pf->flags[0] == '-')
-		|| ((pf->flags[3] == '0' && pf->prec == -1)))
-		*i = 0;
-	else if (!pf->flags[3] || (pf->flags[3] && pf->prec <= nlen))
-		*i = (rlen - nlen - 2);
-	res[(*i)++] = '0';
-	(*pf->fmt == 'X') ? (res[(*i)++] = 'X') : (res[(*i)++] = 'x');
+	if (!pf->flags[0] && pf->prec > nlen)
+		i = (rlen - pf->prec - 2);
+	else if (!pf->flags[0] && !pf->flags[3] && rlen > (nlen + 2))
+		i = (rlen - nlen - 2);
+	else 
+		i = 0;
+	res[(i++)] = '0';
+	(*pf->fmt == 'X') ? (res[(i)] = 'X') : (res[(i)] = 'x');
 }
 
 static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 {
 	int			i;
+	int 		z;
 	int			nlen;
 
 	i = 0;
+	z = 0;
 	nlen = ft_strlen(str);
-	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
-		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	(pf->flags[0] == '-' || pf->prec != -1) ? pf->flags[3] = '\0' : 0;
+	(pf->flags[3] == '0') ? ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	if (pf->flags[4] == '#' && !(str[0] == '0' && !str[1]))
-		apply_zerox(pf, res, &i, nlen);
+	{
+		apply_zerox(pf, res, i, nlen);
+		z = 2;
+	}
 	if (pf->prec <= nlen && nlen)
-		(pf->flags[0] == '-') ? 0 : (i = (rlen - nlen));
+		(pf->flags[0] == '-') ? (i += z) : (i = (rlen - nlen));
 	else if (pf->prec > nlen)
 	{
-		(pf->flags[0] == '-') ? 0 : (i = (rlen - pf->prec));
+		(pf->flags[0] == '-') ? i += z : (i = (rlen - pf->prec));
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
