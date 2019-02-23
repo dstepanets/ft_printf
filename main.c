@@ -55,13 +55,15 @@ int		main(void)
 	ret = ft_printf("%s %s", NULL, "string");
 	printf("\n>>ret: %d\n--------\n", ret);
 
-	printf("==============INTS==============\n");
+*/	printf("==============INTS==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%.d %.0d|", 0, 0));
 	printf("\n>>ret: %d\n--------\n", printf("d:|%5.d %5.0d|", 0, 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("d:|%5.d %5.0d|", 0, 0));
+	printf("\n>>ret: %d\n--------\n", printf("d:|%0+5.0d|", 25));
+	printf("\n>>ret: %d\n========\n", ft_printf("d:|%0+5.0d|", 25));
 
-	printf("==============UNSIGNED==============\n");
+/*	printf("==============UNSIGNED==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n========\n", ft_printf("u:|%U|", 4294967296));
 	printf("\n>>ret: %d\n--------\n", printf("u:|%.u, %.0u|", 0, 0));
@@ -87,7 +89,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("o:|%0-#5o|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("o:|%0-#5o|", 0));
 
-*/	printf("==============HEXADECIMAL==============\n");
+	printf("==============HEXADECIMAL==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("x:|%028.18x|", 4242));
 	printf("\n>>ret: %d\n========\n", ft_printf("x:|%028.18x|", 4242));
 	printf("\n>>ret: %d\n--------\n", printf("x:|%#5.3x|", 25));
@@ -101,7 +103,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("x:|%#.4hhx|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("x:|%#.4hhx|", 0));
 
-/*	printf("==============POINTERS==============\n");
+	printf("==============POINTERS==============\n");
 	printf("\n>>ret: %d\n--------\n", printf("p:|%028.18p|", fptr));
 	printf("\n>>ret: %d\n========\n", ft_printf("p:|%028.18p|", fptr));
 	printf("\n>>ret: %d\n--------\n", printf("p:|%.18p|", fptr));

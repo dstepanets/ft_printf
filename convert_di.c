@@ -91,10 +91,11 @@ static void			apply_sign(t_pf *pf, char *res, intmax_t num, int rlen)
 		i = rlen - pf->prec - 1;
 	if (num < 0)
 		res[i] = '-';
-	else if (pf->flags[2] == ' ' && !pf->flags[1])
-		res[i] = ' ';
 	else if (pf->flags[1] == '+')
 		res[i] = '+';
+	else if (pf->flags[2] == ' ')
+		res[i] = ' ';
+
 }
 
 static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
@@ -106,8 +107,8 @@ static void			apply_specs(t_pf *pf, intmax_t num, char *res, int rlen)
 	(num == 0 && pf->prec == 0) ? (nlen = 0) : (nlen = num_len(num));
 	i = 0;
 	s = 0;
-	(pf->flags[3] == '0' && !pf->flags[0] && pf->prec == -1) ?
-		ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	(pf->flags[0] == '-' || pf->prec != -1) ? pf->flags[3] = '\0' : 0;
+	(pf->flags[3] == '0') ? ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	if (num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+')
 	{
 		apply_sign(pf, res, num, rlen);
