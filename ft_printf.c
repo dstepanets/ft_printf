@@ -81,8 +81,7 @@ int			ft_printf(const char *format, ...)
 	ret = parse_format(pf);
 	va_end(pf->args);
 	ft_putstr(pf->print);
-	if (*pf->print)
-		free(pf->print);
+	free(pf->print);
 	free(pf);
 	return(ret); 
 }

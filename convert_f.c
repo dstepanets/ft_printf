@@ -60,6 +60,11 @@ static char			*get_int(t_fl *fl, intmax_t num)
 		fl->left[--nlen] = (num % 10) + '0';
 		num /= 10;
 	}
+	if ((double)fl->num == LONG_MIN)
+	{	
+		free(fl->left);
+		fl->left = ft_strdup("9223372036854775808");
+	}
 	return (fl->left);
 }
 
@@ -114,14 +119,13 @@ static int			infnan(t_pf *pf, t_fl *fl)
 	if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0) || (fl->num != fl->num))
 	{
 		free(fl->left);
-		if ((double)fl->num == LONG_MIN)
-			fl->left = ft_strdup("-9223372036854775808");
-		else if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0))
+		if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0))
 			(*pf->fmt == 'F') ? (fl->left = ft_strdup("INF")) : (fl->left = ft_strdup("inf"));
 		else if (fl->num != fl->num)
 			(*pf->fmt == 'F') ? (fl->left = ft_strdup("NAN")) : (fl->left = ft_strdup("nan"));
 		ft_bzero(fl->right, pf->prec);
 		pf->prec = 0;
+		pf->flags[3] = '\0';
 		return (1);
 	}
 	return (0);

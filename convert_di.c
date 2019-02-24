@@ -82,7 +82,7 @@ static void			apply_sign(t_pf *pf, char *res, intmax_t num, int rlen)
 	int			nlen;
 	int i;
 
-	nlen = num_len(num);
+	(num == 0 && pf->prec == 0) ? (nlen = 0) : (nlen = num_len(num));
 	if (pf->flags[0] || (pf->flags[3] && pf->prec <= nlen))
 		i = 0;
 	else if (!pf->flags[0] && pf->prec <= nlen)
