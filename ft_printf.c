@@ -20,12 +20,13 @@ int			parse_format(t_pf *pf)
 	while (*pf->fmt != '\0')
 	{
 		i = 0;
-		while (pf->fmt[i] && pf->fmt[i] != '%')
+		while (pf->fmt[i] && pf->fmt[i] != '%' && pf->fmt[i] != '{')
 			i++;
 		txt = ft_strsub(pf->fmt, 0, i);
 		pf->print = pf_strjoin(pf, txt);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
+		(*pf->fmt == '{' && *(pf->fmt + 1)) ? style(pf) : 0;
 		if (*pf->fmt == '%' && *(pf->fmt + 1))
 		{
 			reset_specs(pf);
@@ -70,7 +71,7 @@ int			ft_printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-	if (!ft_strchr(format, '%'))
+	if (!ft_strchr(format, '%') && !ft_strchr(format, '{'))
 	{
 		ft_putstr(format);
 		return(ft_strlen(format));

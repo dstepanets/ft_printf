@@ -52,6 +52,7 @@ int						ft_printf(const char *format, ...);
 t_pf					*init_specs(char *fmt);
 void					reset_specs(t_pf *pf);
 int						parse_format(t_pf *pf);
+void					style(t_pf *pf);
 
 void					parse_flags(t_pf *pf);
 void					parse_fwidth(t_pf *pf);
@@ -90,7 +91,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*ft_strdup(const char *s1);
-
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /*
 ** TEMP
