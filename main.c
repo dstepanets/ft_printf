@@ -149,7 +149,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("f:|%010.5f|", 0/fnum2));
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%010.5f|", 0/fnum2));
 
-	printf("==============COLORS==============\n");
+ 	printf("==============COLORS==============\n");
 	ft_printf("normal text {b}bold %f {0}norm {red}red %d {blue}blue \n{0}", 1.42, 42);
 	ft_printf("normal {u}uderlined {d}dim {i}italic {I}inverted {0}norm\n");
 	ft_printf("{green}green {yellow}yellow {magenta}magenta {I}inverted {-}def {0}norm\n");
@@ -159,13 +159,20 @@ int		main(void)
 	ft_printf("{_magenta}_magenta {_cyan}_cyan {_black}_black {_white}_white {_lightgray}_lightgray{_darkgray}_darkgray\n");
 	ret = ft_printf("{b}bold {red}red{0}{-}\n");
 	printf("ret: %d\n", ret);
-*/
-	printf("==============BINARY==============\n");
+*/	printf("\n>>ret: %d\n--------\n", printf("{%10d}", 42));
+	printf("\n>>ret: %d\n========\n", ft_printf("{red}{%10d}", 42));
+	printf("\n>>ret: %d\n--------\n", printf("{%s}", 0));
+	printf("\n>>ret: %d\n========\n", ft_printf("{%s}", 0));
+
+
+/*	printf("==============BINARY==============\n");
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%-20.10b|", 42));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%20b|", -42));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%12b|", 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%-12.3b|", 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%012b|", 2));
+
+*/
 
 //	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 //	system("leaks a.out");
