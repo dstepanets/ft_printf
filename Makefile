@@ -27,7 +27,9 @@ SRCS =	ft_printf.c \
 		convert_x.c \
 		convert_p.c \
 		convert_f.c \
-		colors.c
+		colors1.c \
+		colors2.c \
+		colors3.c
 LIB_DIR = ./pf_libft/
 LIB_SRC = *.c
 #	LIB_SRC =	ft_bzero.c \
