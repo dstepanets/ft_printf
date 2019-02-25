@@ -12,28 +12,6 @@
 
 #include "ft_printf.h"
 
-static uintmax_t	hex_length_mod(t_pf *pf)
-{
-	uintmax_t	num;
-
-	num = 0;
-	if (pf->len == no)
-		num = (unsigned int)(va_arg(pf->args, unsigned int));
-	else if (pf->len == hh)
-		num = (unsigned char)(va_arg(pf->args, unsigned int));
-	else if (pf->len == h)
-		num = (unsigned short)(va_arg(pf->args, unsigned int));
-	else if (pf->len == l)
-		num = (unsigned long)(va_arg(pf->args, unsigned long int));
-	else if (pf->len == ll)
-		num = (unsigned long long)(va_arg(pf->args, unsigned long long int));
-	else if (pf->len == j)
-		num = (uintmax_t)(va_arg(pf->args, uintmax_t));
-	else if (pf->len == z)
-		num = (size_t)(va_arg(pf->args, size_t));
-	return(num);
-}
-
 static int			res_len(t_pf *pf, char *str)
 {
 	int			rlen;
@@ -110,7 +88,7 @@ void				convert_x(t_pf *pf)
 	char		*res;
 	int			rlen;
 
-	num = hex_length_mod(pf);
+	num = uint_length_mod(pf);
 	str = pf_itoa_base(num , 16, pf);
 	rlen = res_len(pf, str);
 	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))

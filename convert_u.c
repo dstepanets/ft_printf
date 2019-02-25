@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static uintmax_t	uint_length_mod(t_pf *pf)
+uintmax_t	uint_length_mod(t_pf *pf)
 {
 	uintmax_t	num;
 
 	num = 0;
-	*pf->fmt == 'U' ? pf->len = l : 0;
+	(*pf->fmt == 'U' || *pf->fmt == 'O') ? pf->len = l : 0;
 	if (pf->len == no)
 		num = (unsigned int)(va_arg(pf->args, unsigned int));
 	else if (pf->len == hh)
@@ -32,7 +32,7 @@ static uintmax_t	uint_length_mod(t_pf *pf)
 		num = (uintmax_t)(va_arg(pf->args, uintmax_t));
 	else if (pf->len == z)
 		num = (size_t)(va_arg(pf->args, size_t));
-	return((uintmax_t)num);
+	return(num);
 }
 
 static int			num_len(uintmax_t num)

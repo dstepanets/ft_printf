@@ -45,7 +45,6 @@ void		reset_specs(t_pf *pf)
 	pf->width = 0;
 	pf->prec = -1;
 	pf->len = no;
-	pf->convers = '\0';
 }
 
 t_pf		*init_specs(char *fmt)
@@ -60,7 +59,6 @@ t_pf		*init_specs(char *fmt)
 	pf->width = 0;
 	pf->prec = -1;
 	pf->len = no;
-	pf->convers = '\0';
 	return (pf);
 }
 

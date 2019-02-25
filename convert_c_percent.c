@@ -35,7 +35,7 @@ void		convert_percent(t_pf *pf)
 	pf->print = pf_strjoin(pf, (char *)res);
 }
 
-void		null_char_helper(t_pf *pf)
+static void		null_char_helper(t_pf *pf)
 {
 	char	*leakfix;
 

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int			s_position_crutch(int width, int len)
+static int			s_position_crutch(int width, int len)
 {
 	return((width - len) > 0 ? (width - len) : 0);
 }
