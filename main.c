@@ -152,9 +152,13 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%010.5f|", 0/fnum2));
 */
 	printf("==============COLORS==============\n");
-	ft_printf("normal text {b} bold %f {0} norm {red} red %d {blue} blue \n{0}", 1.42, 42);
-	ft_printf("normal {u} uderlined {d} dim {i} inverted {0} norm\n");
-	ft_printf("{green} green {yellow} yellow {magenta} magenta {i} inverted {def}def {0}norm\n");
+	ft_printf("normal text {b}bold %f {0}norm {red}red %d {blue}blue \n{0}", 1.42, 42);
+	ft_printf("normal {u}uderlined {d}dim {i}italic {I}inverted {0}norm\n");
+	ft_printf("{green}green {yellow}yellow {magenta}magenta {I}inverted {-}def {0}norm\n");
+	ft_printf("{cyan}cyan {_white}{black}_white-black{I}inverted {0}0 {b}{_green}{white}b_green-white{_}\n");
+	ft_printf("{0}{lightgray}lightgray {darkgray}darkgray{i}inverted {0}0\n");
+	ft_printf("{-}{_}def_def {_red}_red {_blue}_blue {_green}_green {_yellow}_yellow{_}\n");
+	ft_printf("{_magenta}_magenta {_cyan}_cyan {_black}_black {_white}_white {_lightgray}_lightgray{_darkgray}_darkgray\n");
 
 //	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 //	system("leaks a.out");
