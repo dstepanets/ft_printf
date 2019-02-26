@@ -16,25 +16,22 @@ int			parse_format(t_pf *pf)
 {
 	int		i;
 	char	*txt;
-	int		t = 1;
+	char	*save;
 
 	while (*pf->fmt != '\0')
 	{
 		i = 0;
-		while (pf->fmt[i] && pf->fmt[i] != '%')
-		{
-			if (pf->fmt[i] == '{' && t == 1)
-				break ;
+		while (pf->fmt[i] && pf->fmt[i] != '%' && pf->fmt[i] != '{')
 			i++;
-		}
 		txt = ft_strsub(pf->fmt, 0, i);
 		pf->print = pf_strjoin(pf, txt);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
-		if (*pf->fmt == '{' && *(pf->fmt + 1))
+		save = pf->fmt;
+		if (*pf->fmt == '{')
 		{
 			style(pf);
-			(pf->fmt == &pf->fmt[i]) ? (t = 0) : (t = 1);
+			(pf->fmt == save) ? pf->print = pf_strjoin(pf, "{\0") : 0;
 		}
 		if (*pf->fmt == '%' && *(pf->fmt + 1))
 		{
@@ -42,7 +39,7 @@ int			parse_format(t_pf *pf)
 			pf->fmt++;
 			parse_flags(pf);
 		}
-		if (*pf->fmt != '\0' && t != 0)
+		if (*pf->fmt != '\0')
 			pf->fmt++;
 	}
 	return(pf->ret);

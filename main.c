@@ -160,10 +160,11 @@ int		main(void)
 	ret = ft_printf("{b}bold {red}red{0}{-}\n");
 	printf("ret: %d\n", ret);
 */	printf("\n>>ret: %d\n--------\n", printf("{%10d}", 42));
-	printf("\n>>ret: %d\n========\n", ft_printf("{red}{%10d}", 42));
+	printf("\n>>ret: %d\n========\n", ft_printf("{red}{%10d}{-}", 42));
 	printf("\n>>ret: %d\n--------\n", printf("{%s}", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("{%s}", 0));
-
+	printf("\n>>ret: %d\n--------\n", printf("{{{{%f}}}}", 1.2648));
+	printf("\n>>ret: %d\n========\n", ft_printf("{{{blue}{{%f}}{-}}}", 1.2648));
 
 /*	printf("==============BINARY==============\n");
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%-20.10b|", 42));

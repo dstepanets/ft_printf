@@ -17,14 +17,14 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	char	*res;
 	int		i;
 	int		j;
-
+	
 	if (!pf->print || !s2)
 		return (NULL);
 	if (!(res = (char *)malloc(ft_strlen(pf->print) + ft_strlen(s2) + 1)))
 		return (NULL);
 	i = 0;
 	j = 0;
-	if (*pf->fmt != '{')
+	if (*pf->fmt != '{' || (*pf->fmt == '{' && *s2 == '{'))
 		pf->ret += ft_strlen(s2);
 	while (pf->print[j])
 		res[i++] = pf->print[j++];
