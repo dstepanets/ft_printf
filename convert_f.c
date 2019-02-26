@@ -54,7 +54,7 @@ static char			*get_int(t_fl *fl, intmax_t num)
 	if (!(fl->left = (char *)malloc(sizeof(char) * nlen + 1)))
 		return (NULL);
 	fl->left[nlen] = '\0';
-	(fl->num == 0 || fl->num == -0.0) ? fl->left[0] = '0' : 0;
+	(num == 0 || fl->num == -0.0 || fl->num == 0.0) ? fl->left[0] = '0' : 0;
 	while (num)
 	{
 		fl->left[--nlen] = (num % 10) + '0';
@@ -83,9 +83,11 @@ static void			res_len(t_pf *pf, t_fl *fl)
 static long double	round_num(int i, long double num)
 {
 	long double	roun;
-	int			pr;
+	long double	pr;
 	
 	num = num < 0 ? -num : num;
+	if (num == 0.0)
+		return (0.0);
 	pr = 1;
 	while (i--)
 		pr *= 10;
@@ -99,8 +101,11 @@ static void			put_sign(t_pf *pf, t_fl *fl)
 {
 	int		i;
 	unsigned long long	*n;
-	double d = fl->num;
+	double d;
 
+	if (fl->num != fl->num)
+		return ;
+	d = fl->num;
 	n = (unsigned long long *)&d;
 	if (pf->flags[0] == '-' || pf->flags[3] == '0')
 		i = 0;
@@ -110,7 +115,7 @@ static void			put_sign(t_pf *pf, t_fl *fl)
 		fl->res[i] = '-';
 	else if (pf->flags[1] == '+')
 		fl->res[i] = '+';
-	else
+	else if (pf->flags[2] == ' ')
 		fl->res[i] = ' ';
 }
 
@@ -126,6 +131,7 @@ static int			infnan(t_pf *pf, t_fl *fl)
 		ft_bzero(fl->right, pf->prec);
 		pf->prec = 0;
 		pf->flags[3] = '\0';
+		pf->flags[4] = '\0';
 		return (1);
 	}
 	return (0);
@@ -133,23 +139,27 @@ static int			infnan(t_pf *pf, t_fl *fl)
 
 static void			apply_specs(t_pf *pf, t_fl *fl)
 {
-	int		i;
-	int		s;
-	
-	(pf->flags[3] == '0' && !pf->flags[0]) ?
-		ft_memset(fl->res, '0', fl->rlen) : ft_memset(fl->res, ' ', fl->rlen);
+	int					i;
+	int					s;
+	unsigned long long	*n;
+	double 				d;
+
+	(pf->flags[0] == '-') ? pf->flags[3] = '\0' : 0;
+	(pf->flags[1] == '+') ? pf->flags[2] = '\0' : 0;
+	(pf->flags[3] == '0') ?	ft_memset(fl->res, '0', fl->rlen) :
+		ft_memset(fl->res, ' ', fl->rlen);
 	i = 0;
 	s = 0;
-	if (fl->num < 0.0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || fl->num == -0.0)
+	d = fl->num;
+	n = (unsigned long long *)&d;
+	if (fl->num < 0.0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || ((*n >> 63 & 1) && fl->num == fl->num))
 	{
 		put_sign(pf, fl);
 		s = 1;
 	}
 	(pf->flags[0] == '-') ? (i += s) : (i = (fl->rlen - fl->nlen));
-//	printf("i: %d\n", i);
 	while (*fl->left)
 		fl->res[i++] = *fl->left++;
-//	printf("i: %d\n", i);
 	(pf->prec != 0 || pf->flags[4] == '#') ? fl->res[i++] = '.' : 0;
 	while (*fl->right)
 		fl->res[i++] = *fl->right++;

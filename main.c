@@ -123,7 +123,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", printf("p:|%05p|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("p:|%05p|", 0));
 
-	printf("==============FLOAT==============\n");
+*/	printf("==============FLOAT==============\n");
 	float 	fnum = -100;
 	float 	fnum2 = 0;
 	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
@@ -144,12 +144,29 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%f|", 1.42));
 	printf("\n>>ret: %d\n--------\n", printf("f:|%.2f|", 1.388));
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%.2f|", 1.388));
-	printf("\n>>ret: %d\n--------\n", printf("f:|%-10.2F|", fnum/fnum2));
-	printf("\n>>ret: %d\n========\n", ft_printf("f:|%-10.2F|", fnum/fnum2));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%+-10.2F|", fnum/fnum2));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%+-10.2F|", fnum/fnum2));
 	printf("\n>>ret: %d\n--------\n", printf("f:|%010.5f|", 0/fnum2));
 	printf("\n>>ret: %d\n========\n", ft_printf("f:|%010.5f|", 0/fnum2));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%f|", 0.2468));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%f|", 0.2468));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%-.f|", 0.0));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%-.f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%.70f|", 0.0));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%.70f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%0-#.f|", 0.0));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%0-#.f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%010.f|", 0.0));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%010.f|", 0.0));
+	printf("\n>>ret: %d\n--------\n", printf("f:|% 0-#10.2f|", fnum/fnum2));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|% 0-#10.2f|", fnum/fnum2));
+	printf("\n>>ret: %d\n--------\n", printf("f:|% +10.2f|", 0/fnum2));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|% +10.2f|", 0/fnum2));
+	printf("\n>>ret: %d\n--------\n", printf("f:|%.70f|", -256.0));
+	printf("\n>>ret: %d\n========\n", ft_printf("f:|%.70f|", -256.0));
 
- 	printf("==============COLORS==============\n");
+
+/* 	printf("==============COLORS==============\n");
 	ft_printf("normal text {b}bold %f {0}norm {red}red %d {blue}blue \n{0}", 1.42, 42);
 	ft_printf("normal {u}uderlined {d}dim {i}italic {I}inverted {0}norm\n");
 	ft_printf("{green}green {yellow}yellow {magenta}magenta {I}inverted {-}def {0}norm\n");
@@ -159,14 +176,14 @@ int		main(void)
 	ft_printf("{_magenta}_magenta {_cyan}_cyan {_black}_black {_white}_white {_lightgray}_lightgray{_darkgray}_darkgray\n");
 	ret = ft_printf("{b}bold {red}red{0}{-}\n");
 	printf("ret: %d\n", ret);
-*/	printf("\n>>ret: %d\n--------\n", printf("{%10d}", 42));
+	printf("\n>>ret: %d\n--------\n", printf("{%10d}", 42));
 	printf("\n>>ret: %d\n========\n", ft_printf("{red}{%10d}{-}", 42));
 	printf("\n>>ret: %d\n--------\n", printf("{%s}", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("{%s}", 0));
 	printf("\n>>ret: %d\n--------\n", printf("{{{{%f}}}}", 1.2648));
 	printf("\n>>ret: %d\n========\n", ft_printf("{{{blue}{{%f}}{-}}}", 1.2648));
 
-/*	printf("==============BINARY==============\n");
+	printf("==============BINARY==============\n");
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%-20.10b|", 42));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%20b|", -42));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%12b|", 0));
