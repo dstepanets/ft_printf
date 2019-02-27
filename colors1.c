@@ -18,7 +18,7 @@
 **	{u} - Underlined
 ** 	{i} - italic
 ** 	{I} - inverted
-**	
+**
 **	TEXT COLORS:
 **	{-}	- default
 **	{red}
@@ -40,7 +40,7 @@
 #include "ft_printf.h"
 
 static void		style2(t_pf *pf)
-{	
+{
 	if (!ft_strncmp(pf->fmt, "{u}", 3))
 	{
 		pf->print = pf_strjoin(pf, "\x1B[4m\0");
@@ -86,4 +86,3 @@ void			style(t_pf *pf)
 	else
 		style2(pf);
 }
-

@@ -18,7 +18,7 @@
 **	{u} - Underlined
 ** 	{i} - italic
 ** 	{I} - inverted
-**	
+**
 **	TEXT COLORS:
 **	{-}	- default
 **	{red}
@@ -39,7 +39,7 @@
 
 #include "ft_printf.h"
 
-static void 	background_colors4(t_pf *pf)
+static void		background_colors4(t_pf *pf)
 {
 	if (!ft_strncmp(pf->fmt, "{_lightgray}", 12))
 	{
@@ -56,7 +56,7 @@ static void 	background_colors4(t_pf *pf)
 	return ;
 }
 
-static void 	background_colors3(t_pf *pf)
+static void		background_colors3(t_pf *pf)
 {
 	if (!ft_strncmp(pf->fmt, "{_cyan}", 7))
 	{
@@ -80,7 +80,7 @@ static void 	background_colors3(t_pf *pf)
 		background_colors4(pf);
 }
 
-static void 	background_colors2(t_pf *pf)
+static void		background_colors2(t_pf *pf)
 {
 	if (!ft_strncmp(pf->fmt, "{_green}", 8))
 	{
@@ -104,7 +104,7 @@ static void 	background_colors2(t_pf *pf)
 		background_colors3(pf);
 }
 
-void 		background_colors(t_pf *pf)
+void			background_colors(t_pf *pf)
 {
 	if (!ft_strncmp(pf->fmt, "{_}", 3))
 	{

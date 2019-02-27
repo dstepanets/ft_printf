@@ -15,7 +15,7 @@
 static int			res_len(t_pf *pf, char *str)
 {
 	int			rlen;
-	int 		nlen;
+	int			nlen;
 
 	nlen = ft_strlen(str);
 	rlen = nlen;
@@ -29,7 +29,7 @@ static int			res_len(t_pf *pf, char *str)
 		if (!pf->width)
 			return (0);
 		else
-			return(rlen);
+			return (rlen);
 	}
 	return (rlen);
 }
@@ -42,12 +42,12 @@ static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 	i = 0;
 	nlen = ft_strlen(str);
 	(pf->flags[0] == '-' || pf->prec != -1) ? pf->flags[3] = '\0' : 0;
-	(pf->flags[3] == '0') ? ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
+	(pf->flags[3]) ? ft_memset(res, '0', rlen) : ft_memset(res, ' ', rlen);
 	if (pf->prec <= nlen && nlen)
-		(pf->flags[0] == '-') ? (i = 0) : (i = (rlen - nlen));
+		i = pf->flags[0] ? 0 : (rlen - nlen);
 	else if (pf->prec > nlen)
 	{
-		(pf->flags[0] == '-') ? i = 0 : (i = (rlen - pf->prec));
+		i = pf->flags[0] ? 0 : (rlen - pf->prec);
 		while (pf->prec-- > nlen)
 			res[i++] = '0';
 	}
@@ -55,7 +55,7 @@ static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
 		res[i++] = *(str++);
 }
 
-void					convert_b(t_pf *pf)
+void				convert_b(t_pf *pf)
 {
 	uintmax_t	num;
 	char		*str;
@@ -63,7 +63,7 @@ void					convert_b(t_pf *pf)
 	int			rlen;
 
 	num = uint_length_mod(pf);
-	str = pf_itoa_base(num , 2, pf);
+	str = pf_itoa_base(num, 2, pf);
 	rlen = res_len(pf, str);
 	if (!(res = (char *)malloc(sizeof(char) * rlen + 1)))
 		return ;

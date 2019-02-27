@@ -197,7 +197,6 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%-12.3b|", 0));
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%012b|", 2));
 
-
 	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
 	system("leaks a.out");
 	return (0);

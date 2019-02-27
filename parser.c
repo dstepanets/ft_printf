@@ -12,11 +12,17 @@
 
 #include "ft_printf.h"
 
-void		parse_convers(t_pf *pf)
+static void	parse_convers2(t_pf *pf)
 {
 	char c[2];
 
-    c[1] = '\0';
+	c[1] = '\0';
+	c[0] = *pf->fmt;
+	pf->print = pf_strjoin(pf, c);
+}
+
+void		parse_convers(t_pf *pf)
+{
 	if (*pf->fmt == '%')
 		convert_percent(pf);
 	else if (*pf->fmt == 'c')
@@ -38,10 +44,7 @@ void		parse_convers(t_pf *pf)
 	else if (*pf->fmt == 'b')
 		convert_b(pf);
 	else if (*pf->fmt)
-	{
-		c[0] = *pf->fmt;
-		pf->print = pf_strjoin(pf, c);
-	}
+		parse_convers2(pf);
 }
 
 void		parse_length(t_pf *pf)
@@ -67,15 +70,16 @@ void		parse_length(t_pf *pf)
 			pf->len = L;
 		if (*pf->fmt == 'j')
 			pf->len = j;
-		if (*pf->fmt == 'z')
-			pf->len = z;
+		(*pf->fmt == 'z') ? pf->len = z : 0;
 		pf->fmt++;
 	}
 	parse_convers(pf);
 }
 
-void		parse_precision(t_pf *pf)
+void		parse_fwid_prec(t_pf *pf)
 {
+	while (ft_isdigit(*pf->fmt))
+		pf->width = pf->width * 10 + (*pf->fmt++ - '0');
 	if (*pf->fmt == '.')
 	{
 		pf->fmt++;
@@ -84,13 +88,6 @@ void		parse_precision(t_pf *pf)
 			pf->prec = pf->prec * 10 + (*pf->fmt++ - '0');
 	}
 	parse_length(pf);
-}
-
-void		parse_fwidth(t_pf *pf)
-{
-	while (ft_isdigit(*pf->fmt))
-		pf->width = pf->width * 10 + (*pf->fmt++ - '0');
-	parse_precision(pf);
 }
 
 void		parse_flags(t_pf *pf)
@@ -110,5 +107,5 @@ void		parse_flags(t_pf *pf)
 			pf->flags[4] = '#';
 		pf->fmt++;
 	}
-	parse_fwidth(pf);
+	parse_fwid_prec(pf);
 }

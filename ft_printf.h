@@ -57,30 +57,32 @@ void 					text_colors(t_pf *pf);
 void 					background_colors(t_pf *pf);
 
 void					parse_flags(t_pf *pf);
-void					parse_fwidth(t_pf *pf);
-void					parse_precision(t_pf *pf);
+void					parse_fwid_prec(t_pf *pf);
 void					parse_length(t_pf *pf);
 void					parse_convers(t_pf *pf);
-
 
 void					convert_c(t_pf *pf);
 void					convert_percent(t_pf *pf);
 void					convert_s(t_pf *pf);
 void					convert_di(t_pf *pf);
+intmax_t				int_length_mod(t_pf *pf);
+int						di_num_len(intmax_t num);
+uintmax_t				uint_length_mod(t_pf *pf);
 void					convert_u(t_pf *pf);
 void					convert_o(t_pf *pf);
 void					convert_x(t_pf *pf);
 void					convert_p(t_pf *pf);
 void					convert_f(t_pf *pf);
 void					convert_b(t_pf *pf);
-uintmax_t				uint_length_mod(t_pf *pf);
+
+
+char					*pf_strjoin(t_pf *pf, char *s2);
+char					*pf_itoa_base(uintmax_t num, int base, t_pf *pf);
 
 /*
 ** libft functions
 */
 
-char					*pf_strjoin(t_pf *pf, char *s2);
-char					*pf_itoa_base(uintmax_t num, int base, t_pf *pf);
 void					ft_bzero(void *s, size_t n);
 int						ft_isdigit(int c);
 void					*ft_memset(void *b, int c, size_t len);
@@ -97,6 +99,7 @@ int						ft_strncmp(const char *s1, const char *s2, size_t n);
 /*
 ** TEMP
 */
+
 void	ft_putstr_fd(char const *s, int fd);
 void	ft_memdel(void **ap);
 char	*ft_strncat(char *s1, const char *s2, size_t n);

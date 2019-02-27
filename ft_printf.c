@@ -12,11 +12,17 @@
 
 #include "ft_printf.h"
 
-int			parse_format(t_pf *pf)
+static void		parse_format2(t_pf *pf)
+{
+	reset_specs(pf);
+	pf->fmt++;
+	parse_flags(pf);
+}
+
+int				parse_format(t_pf *pf)
 {
 	int		i;
 	char	*txt;
-	char	*save;
 
 	while (*pf->fmt != '\0')
 	{
@@ -27,25 +33,21 @@ int			parse_format(t_pf *pf)
 		pf->print = pf_strjoin(pf, txt);
 		free(txt);
 		pf->fmt = &pf->fmt[i];
-		save = pf->fmt;
+		txt = pf->fmt;
 		if (*pf->fmt == '{')
 		{
 			style(pf);
-			(pf->fmt == save) ? pf->print = pf_strjoin(pf, "{\0") : 0;
+			(pf->fmt == txt) ? pf->print = pf_strjoin(pf, "{\0") : 0;
 		}
 		if (*pf->fmt == '%' && *(pf->fmt + 1))
-		{
-			reset_specs(pf);
-			pf->fmt++;
-			parse_flags(pf);
-		}
+			parse_format2(pf);
 		if (*pf->fmt != '\0')
 			pf->fmt++;
 	}
-	return(pf->ret);
+	return (pf->ret);
 }
 
-void		reset_specs(t_pf *pf)
+void			reset_specs(t_pf *pf)
 {
 	ft_bzero(pf->flags, 5);
 	pf->width = 0;
@@ -53,7 +55,7 @@ void		reset_specs(t_pf *pf)
 	pf->len = no;
 }
 
-t_pf		*init_specs(char *fmt)
+t_pf			*init_specs(char *fmt)
 {
 	t_pf		*pf;
 
@@ -68,7 +70,7 @@ t_pf		*init_specs(char *fmt)
 	return (pf);
 }
 
-int			ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	t_pf		*pf;
 	int			ret;
@@ -78,7 +80,7 @@ int			ft_printf(const char *format, ...)
 	if (!ft_strchr(format, '%') && !ft_strchr(format, '{'))
 	{
 		ft_putstr(format);
-		return(ft_strlen(format));
+		return (ft_strlen(format));
 	}
 	pf = init_specs((char *)format);
 	ret = 0;
@@ -88,26 +90,5 @@ int			ft_printf(const char *format, ...)
 	ft_putstr(pf->print);
 	free(pf->print);
 	free(pf);
-	return(ret); 
+	return (ret);
 }
-
-/*
-	printf("++++++++SPECS++++++++++\nflags: ");
-	for (int z = 0; z < 5; z++)
-		printf("%c", pf->flags[z]);
-	printf("\nwidth: %d\n", pf->width);
-	printf("precision: %d\n", pf->prec);
-	printf("length: %d\n", pf->len);
-	printf("conversion: %c\n+++++++++++++++++++++++\n\n", pf->convers);
-*/
-
-
-
-
-
-
-
-/*
-	char	*symbols;
-	symbols = "cspdiouxXfhlL#0-+. %";
-*/
