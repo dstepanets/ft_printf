@@ -27,6 +27,7 @@ SRCS =	ft_printf.c \
 		convert_x.c \
 		convert_p.c \
 		convert_f.c \
+		convert_f2.c \
 		convert_b.c \
 		colors1.c \
 		colors2.c \

@@ -17,7 +17,7 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	char	*res;
 	int		i;
 	int		j;
-	
+
 	if (!pf->print || !s2)
 		return (NULL);
 	if (!(res = (char *)malloc(ft_strlen(pf->print) + ft_strlen(s2) + 1)))
@@ -31,7 +31,7 @@ char	*pf_strjoin(t_pf *pf, char *s2)
 	while (*s2)
 		res[i++] = *s2++;
 	res[i] = '\0';
-	if(pf->print)
+	if (pf->print)
 	{
 		free((void *)pf->print);
 		pf->print = NULL;

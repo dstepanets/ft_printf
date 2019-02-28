@@ -56,43 +56,18 @@ static char			*get_int(t_fl *fl, intmax_t num)
 		num /= 10;
 	}
 	if ((double)fl->num == LONG_MIN)
-	{	
+	{
 		free(fl->left);
 		fl->left = ft_strdup("9223372036854775808");
 	}
 	return (fl->left);
 }
 
-static void			res_len(t_pf *pf, t_fl *fl)
-{
-	fl->nlen = ft_strlen(fl->left) + pf->prec;
-	(pf->prec != 0 || pf->flags[4] == '#') ? fl->nlen++ : 0;
-	fl->rlen = fl->nlen;
-	(fl->num < 0 || pf->flags[2] == ' ' || pf->flags[1] == '+') ? fl->rlen++ : 0;
-	(pf->width > fl->rlen) ? fl->rlen = pf->width : 0;
-}
-
-static long double	round_num(intmax_t i, long double num)
-{
-	long double	roun;
-	long double	pr;
-	
-	num = num < 0 ? -num : num;
-	if (num == 0.0)
-		return (0.0);
-	pr = 1;
-	while (i--)
-		pr *= 10;
-	roun = (num * pr + 0.5);
-	roun /= pr;
-	return (roun);
-}
-
 static void			put_sign(t_pf *pf, t_fl *fl)
 {
-	int		i;
+	int					i;
 	unsigned long long	*n;
-	double d;
+	double				d;
 
 	if (fl->num != fl->num)
 		return ;
@@ -110,44 +85,23 @@ static void			put_sign(t_pf *pf, t_fl *fl)
 		fl->res[i] = ' ';
 }
 
-static int			infnan(t_pf *pf, t_fl *fl)
-{
-	if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0) || (fl->num != fl->num))
-	{
-		free(fl->left);
-		if ((fl->num == 1.0 / 0.0) || (fl->num == -1.0 / 0.0))
-			(*pf->fmt == 'F') ? (fl->left = ft_strdup("INF")) : (fl->left = ft_strdup("inf"));
-		else if (fl->num != fl->num)
-		{
-			(*pf->fmt == 'F') ? (fl->left = ft_strdup("NAN")) : (fl->left = ft_strdup("nan"));
-			pf->flags[1] = '\0';
-			pf->flags[2] = '\0';
-		}
-		ft_bzero(fl->right, pf->prec);
-		pf->prec = 0;
-		pf->flags[3] = '\0';
-		pf->flags[4] = '\0';
-		return (1);
-	}
-	return (0);
-}
-
 static void			apply_specs(t_pf *pf, t_fl *fl)
 {
 	int					i;
 	int					s;
 	unsigned long long	*n;
-	double 				d;
+	double				d;
 
 	(pf->flags[0] == '-') ? pf->flags[3] = '\0' : 0;
 	(pf->flags[1] == '+') ? pf->flags[2] = '\0' : 0;
-	(pf->flags[3] == '0') ?	ft_memset(fl->res, '0', fl->rlen) :
+	(pf->flags[3] == '0') ? ft_memset(fl->res, '0', fl->rlen) :
 		ft_memset(fl->res, ' ', fl->rlen);
 	i = 0;
 	s = 0;
 	d = fl->num;
 	n = (unsigned long long *)&d;
-	if (fl->num < 0.0 || pf->flags[2] == ' ' || pf->flags[1] == '+' || ((*n >> 63 & 1) && fl->num == fl->num))
+	if (fl->num < 0.0 || pf->flags[2] == ' ' || pf->flags[1] == '+' ||
+		((*n >> 63 & 1) && fl->num == fl->num))
 	{
 		put_sign(pf, fl);
 		s = 1;
@@ -167,14 +121,14 @@ void				convert_f(t_pf *pf)
 	char		*leak2;
 
 	fl = (t_fl *)malloc(sizeof(t_fl));
-	(pf->len == L) ? (fl->num = (long double)(va_arg(pf->args, long double))) : 
+	(pf->len == L) ? (fl->num = (long double)(va_arg(pf->args, long double))) :
 		(fl->num = (double)(va_arg(pf->args, double)));
 	pf->prec == -1 ? pf->prec = 6 : 0;
-	fl->roun = round_num(pf->prec, fl->num);
+	fl->roun = fl_round_num(pf->prec, fl->num);
 	leak1 = get_int(fl, fl->roun);
 	leak2 = get_fraction(pf, fl, fl->roun);
-	infnan(pf ,fl) ? leak1 = fl->left : 0;
-	res_len(pf, fl);
+	infnan(pf, fl) ? leak1 = fl->left : 0;
+	fl_res_len(pf, fl);
 	if (!(fl->res = (char *)malloc(sizeof(char) * fl->rlen + 1)))
 		return ;
 	fl->res[fl->rlen] = '\0';

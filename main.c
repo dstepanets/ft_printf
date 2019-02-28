@@ -5,7 +5,7 @@ int		main(void)
 	int		ret = 0;
 	float	fnum3 = -1312.52;
 
-	printf("==============CHARS==============\n");
+/*	printf("==============CHARS==============\n");
 	ret = printf("pf_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0); //4:^@ Need to correct!
 	printf("  ret: %d\n--------\n", ret);
 	ret = ft_printf("ft_Chars\n1:%5c:\n2:%0-5c:\n3:%010.5c:\n4|%c|999\n", 'x', 'y', 'z', 0);
@@ -105,7 +105,7 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("x:|%#5.4hhx|", -25));
 	printf("\n>>ret: %d\n--------\n", printf("x:|%#.4hhx|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("x:|%#.4hhx|", 0));
-
+*/
 	printf("==============POINTERS==============\n");
 	float 	*fptr = &fnum3;
 	printf("\n>>ret: %d\n--------\n", printf("p:|%028.18p|", fptr));
@@ -122,8 +122,10 @@ int		main(void)
 	printf("\n>>ret: %d\n========\n", ft_printf("p:|%5p|", 0));
 	printf("\n>>ret: %d\n--------\n", printf("p:|%05p|", 0));
 	printf("\n>>ret: %d\n========\n", ft_printf("p:|%05p|", 0));
+	printf("\n>>ret: %d\n--------\n", printf("p:|% -5p|", 0));
+	printf("\n>>ret: %d\n========\n", ft_printf("p:|% -5p|", 0));
 
-	printf("==============FLOAT==============\n");
+/*	printf("==============FLOAT==============\n");
 	float 	fnum = 100;
 	float 	fnum2 = 0;
 	printf("\n>>ret: %d\n--------\n", printf("f:|%11.2f|", -127.32435));
@@ -198,7 +200,7 @@ int		main(void)
 	printf("\n>>ret: %d\n--------\n", ft_printf("b:|%012b|", 2));
 
 	printf("\n++++++++++++++++++++++++LEAKS++++++++++++++++++++++++++++++++++++++\n");
-	system("leaks a.out");
+*/	system("leaks a.out");
 	return (0);
 }
 

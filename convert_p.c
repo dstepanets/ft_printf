@@ -48,7 +48,7 @@ static void			apply_zerox(t_pf *pf, char *res, int *i, char *str)
 	else
 		*i = 0;
 	res[(*i)++] = '0';
-	res[(*i)] = (*pf->fmt == 'X') ? 'X' : 'x';
+	res[(*i)++] = (*pf->fmt == 'X') ? 'X' : 'x';
 }
 
 static void			apply_specs(t_pf *pf, char *str, char *res, int rlen)
